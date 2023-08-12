@@ -1,0 +1,30 @@
+@extends('layouts.template')
+
+@section('landing')
+
+<div class="container">
+ <div class="row d-flex justify-content-center">
+    <h1>test</h1>
+@foreach ($post as $data)
+<div class="col-md-3 mt-3">
+            <div class="card">
+              <img src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" class="card-img-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
+              <div class="card-body">
+                <p class="card-text fs-5">
+                  <strong><a class="text-success" href="/produk/{{ $data->id }}"> {{ $data->nama }}</a></strong>
+                  <p class="card-text">{{ $data->kategori->nama }}<img src="img/cart2.svg" alt=""></p>
+                </p>
+                <div class="d-flex justify-content-between">
+                <p class="card-text">Rp. {{ $data->harga }}</p>
+                <a href=""><img class="" src="img/cart2.svg" alt=""></a>
+                </div>
+              </div>
+            </div>
+</div>
+@endforeach
+</div>
+</div>
+
+@include('partials.perenggang')
+
+@endsection
