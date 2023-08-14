@@ -16,7 +16,10 @@ class Produk extends Model
     public function scopeCari($query, array $cari)
     {
         $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {
-            return $query->where('nama', 'like', '%' . $pencarian . '%');
+            $query->where('nama', 'like', '%' . $pencarian . '%')
+                ->orWhereHas('kategori', function ($query) use ($pencarian) {
+                    $query->where('nama', 'like', '%' . $pencarian . '%');
+                });
         });
 
         $query->when($cari['kategori'] ?? false, function ($query, $kategori) {
@@ -24,6 +27,8 @@ class Produk extends Model
                 $query->where('nama', 'like', '%' . $kategori . '%');
             });
         });
+
+        return $query;
     }
 
 
