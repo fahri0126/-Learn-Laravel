@@ -37,13 +37,7 @@ Route::get('/biodata', [BiodataController::class, 'index']);
 Route::get('/pesan', [PesanController::class, 'index']);
 
 Route::get('/produk', [ProdukController::class, 'index']);
-
-// Route::get('produk/{barang}', [ProdukController::class, 'show']);
-
 Route::get('produk/{id}/{kategori}', [ProdukController::class, 'show']);
 Route::get('produk/{id}', [ProdukController::class, 'abc']);
-// Route::get('produk/{kategori_id}', function ($kategori_id) {
-//     return view('item', ['barang' =>  Produk::find($kategori_id)]);
-// });
 
 Route::get('/kategori', [KategoriController::class, 'index']);

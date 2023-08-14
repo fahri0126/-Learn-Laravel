@@ -15,8 +15,11 @@
                 </p>
                 <div class="d-flex justify-content-between">
                 <p class="card-text">Rp. {{ $data->harga }}</p>
-                <a href=""><img class="" src="img/cart2.svg" alt=""></a>
+                <a href=""><img class="" src="{{ asset('img/cart2.svg') }}" alt=""></a>
                 </div>
+              <div class="d-flex justify-content-center">
+                <button type="button" name="beli" class="btn btn-outline-success" style="width: 200px">Beli</button>
+              </div>
               </div>
             </div>
 </div>

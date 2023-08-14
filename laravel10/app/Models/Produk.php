@@ -13,9 +13,23 @@ class Produk extends Model
 
     protected $guarded = ['id'];
 
-    public function  scopeShow($query, $kategori)
+    public function scopeCari($query, array $cari)
     {
-        $query->where('kategori_id', $kategori);
+        $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {
+            return $query->where('nama', 'like', '%' . $pencarian . '%');
+        });
+
+        $query->when($cari['kategori'] ?? false, function ($query, $kategori) {
+            return $query->whereHas('kategori', function ($query) use ($kategori) {
+                $query->where('nama', 'like', '%' . $kategori . '%');
+            });
+        });
+    }
+
+
+    public function scopeShow($query, $kategori)
+    {
+        $query->where('kategori_id', $kategori)->orderBy('id', 'desc');
     }
 
     public function kategori()

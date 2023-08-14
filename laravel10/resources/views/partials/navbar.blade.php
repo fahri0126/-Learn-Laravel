@@ -25,6 +25,13 @@
             <a class="nav-link" href="#">Contact</a>
           </li>
         </ul>
+          <form class="d-flex" action="/produk" role="search">
+            @if (request('kategori'))
+            <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+            @endif
+            <input class="form-control me-2 shadow-lg" type="text" name="pencarian" placeholder="Search" aria-label="Search" value="{{ request('pencarian') }}">
+            <button class="btn btn-warning text-white" type="submit">Search</button>
+          </form>
       </div>
       <!-- kanan -->
     </div>
