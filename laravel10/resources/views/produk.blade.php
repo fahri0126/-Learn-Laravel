@@ -6,7 +6,7 @@
 
 <div class="container">
   <div class="pt-3">{{ $produk->links() }}</div>
- <div class="row d-flex justify-content-center">
+ <div class="row justify-content-center">
 @foreach ($produk as $data)
 <div class="col-md-3 mt-3">
             <div class="card">
@@ -21,7 +21,7 @@
                 <a href=""><img class="" src="img/cart2.svg" alt=""></a>
               </div>
               <div class="d-flex justify-content-center">
-                <button type="button" name="beli" class="btn btn-outline-success" style="width: 200px">Beli</button>
+                <a class="btn btn-outline-success" style="width: 200px">Beli</a>
               </div>
               </div>
             </div>

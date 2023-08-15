@@ -9,7 +9,7 @@ class KategoriController extends Controller
 {
     public function index()
     {
-        $kategori = Kategori::all();
-        return view('kategori', ['kategori' => $kategori]);
+        $kategori = Kategori::latest('id', 'desc')->cari(request(['pencarian']));
+        return view('kategori', ['halaman' => 'Kategori', 'aksi' => '/kategori', 'kategori' => $kategori->get()]);
     }
 }

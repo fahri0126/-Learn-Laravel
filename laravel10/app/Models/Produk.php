@@ -15,16 +15,15 @@ class Produk extends Model
 
     public function scopeCari($query, array $cari)
     {
-        $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {
-            $query->where('nama', 'like', '%' . $pencarian . '%')
-                ->orWhereHas('kategori', function ($query) use ($pencarian) {
-                    $query->where('nama', 'like', '%' . $pencarian . '%');
-                });
+        $query->when($cari['kategori'] ?? false, function ($query, $kategori) {
+            $query->orwhereHas('kategori', function ($query) use ($kategori) {
+                $query->where('nama', 'like', '%' . $kategori . '%');
+            });
         });
 
-        $query->when($cari['kategori'] ?? false, function ($query, $kategori) {
-            return $query->whereHas('kategori', function ($query) use ($kategori) {
-                $query->where('nama', 'like', '%' . $kategori . '%');
+        $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {
+            $query->where('nama', 'like', '%' . $pencarian . '%')->orWhereHas('kategori', function ($query) use ($pencarian) {
+                $query->where('nama', 'like', '%' . $pencarian . '%');
             });
         });
 

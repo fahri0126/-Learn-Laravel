@@ -22,16 +22,20 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="/login">Login</a>
           </li>
         </ul>
-          <form class="d-flex" action="/produk" role="search">
+        
+        @if ($halaman ===  'Home' || $halaman == 'Login' || $halaman == 'Registration')
+        @else
+          <form class="d-flex" action="" role="search">
             @if (request('kategori'))
             <input type="hidden" name="kategori" value="{{ request('kategori') }}">
             @endif
             <input class="form-control me-2 shadow-lg" type="text" name="pencarian" placeholder="Search" aria-label="Search" value="{{ request('pencarian') }}">
-            <button class="btn btn-warning text-white" type="submit">Search</button>
+          <button class="btn btn-warning text-white" type="submit">Search</button>
           </form>
+        @endif
       </div>
       <!-- kanan -->
     </div>
