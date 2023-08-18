@@ -12,7 +12,7 @@ class DashboardProdukController extends Controller
      */
     public function index()
     {
-        return view('dashboard.produk.index', ['produk' => Produk::latest('id', 'desc')->where('id', "{{ auth()->user()->id }}")->get()]);
+        return view('dashboard.produk.index', ['produk' => Produk::latest('id', 'desc')->get()]);
     }
 
     /**
