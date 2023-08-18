@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         Pesan::factory(10)->create();
         Kategori::factory(6)->create();
         Unit::factory(3)->create();
-        User::factory(2)->create();
+        // User::factory(2)->create();
         Produk::factory(40)->create();
     }
 }
