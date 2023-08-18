@@ -15,6 +15,8 @@
       </ul>
 
       <div id="navbarSearch" class="navbar-search w-100 ">
-        <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search"/>
+        <form action="" role="search">
+          <input class="form-control w-100 rounded-0 border-0" type="text" name="pencarian" placeholder="Search" aria-label="Search" value="{{ request('pencarian') }}"/>
+        </form>
       </div>
     </header>

@@ -12,7 +12,8 @@ class DashboardUnitController extends Controller
      */
     public function index()
     {
-        return view('dashboard.unit.index', ['unit' => Unit::all()]);
+        $unit = Unit::latest('id', 'desc')->cari(request(['pencarian']));
+        return view('dashboard.unit.index', ['unit' => $unit->get()]);
     }
 
     /**

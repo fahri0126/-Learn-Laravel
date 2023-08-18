@@ -4,6 +4,8 @@
 <h1>Produk</h1>
 <hr>
 
+{{ $produk->links() }}
+
 <div class="table-responsive small">
             <table class="table table-striped table-sm">
               <thead>

@@ -12,7 +12,8 @@ class DashboardProdukController extends Controller
      */
     public function index()
     {
-        return view('dashboard.produk.index', ['produk' => Produk::latest('id', 'desc')->get()]);
+        $produk = Produk::latest('id', 'desc')->cari(request(['pencarian', 'kategori']));
+        return view('dashboard.produk.index', ['produk' => $produk->paginate(10)->withQueryString()]);
     }
 
     /**

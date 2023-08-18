@@ -12,7 +12,8 @@ class DashboardKategoriController extends Controller
      */
     public function index()
     {
-        return view('dashboard.kategori.index', ['kategori' => Kategori::all()]);
+        $kategori = Kategori::latest('id', 'desc')->cari(request(['pencarian']));
+        return view('dashboard.kategori.index', ['kategori' => $kategori->get()]);
     }
 
     /**
