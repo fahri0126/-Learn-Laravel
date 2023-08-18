@@ -10,7 +10,9 @@ use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
+use App\Http\Controllers\DashboardKategoriController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,13 +35,13 @@ use App\Http\Controllers\DashboardProdukController;
 //     );
 // });
 
-Route::get('/', [HomeController::class, 'index'])->middleware('guest');
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/biodata', [BiodataController::class, 'index']);
 
 Route::get('/pesan', [PesanController::class, 'index']);
 
-Route::get('/produk', [ProdukController::class, 'index'])->middleware('guest');
+Route::get('/produk', [ProdukController::class, 'index']);
 // Route::get('produk/{id}/{kategori}', [ProdukController::class, 'show']);
 // Route::get('produk/{id}', [ProdukController::class, 'abc']);
 
@@ -53,5 +55,6 @@ Route::get('/register', [RegisterController::class, 'index'])->middleware('guest
 Route::post('/register', [RegisterController::class, 'store']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
 Route::resource('/dashboard/produk', DashboardProdukController::class)->middleware('auth');
+Route::resource('/dashboard/kategori', DashboardKategoriController::class)->middleware('auth');
+Route::resource('/dashboard/unit', DashboardUnitController::class)->middleware('auth');

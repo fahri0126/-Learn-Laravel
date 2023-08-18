@@ -23,10 +23,10 @@
           </li>
         </ul>
 
-        <ul class="navbar-nav nav-pills  ms-auto">
+        <ul class="navbar-nav nav-pills ms-auto me-2">
         @auth
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+          <li class="nav-item dropdown bg-warning rounded">
+            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
               <li><hr class="dropdown-divider"></hr></li>
@@ -39,11 +39,10 @@
           </li>
 
         @else
-
-        @if($halaman == 'Login' | $halaman == 'Registration' )
-        @else
-          <li class="nav-item ms-auto">
-            <a class="nav-link" href="/login">Login</a>
+          @if($halaman == 'Login' | $halaman == 'Registration' )
+          @else
+          <li class="nav-item ms-auto bg-warning rounded">
+            <a class="nav-link text-white" href="/login">Login</a>
           </li>
           @endif
         @endauth

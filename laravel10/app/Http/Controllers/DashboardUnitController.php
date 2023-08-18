@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
+use App\Models\Unit;
 use Illuminate\Http\Request;
 
-class DashboardProdukController extends Controller
+class DashboardUnitController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('dashboard.produk.index', ['produk' => Produk::latest('id', 'desc')->where('id', "{{ auth()->user()->id }}")->get()]);
+        return view('dashboard.unit.index', ['unit' => Unit::all()]);
     }
 
     /**
@@ -34,16 +34,15 @@ class DashboardProdukController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produk $produk)
+    public function show(string $id)
     {
-
-        return view('dashboard.produk.show', ['produk' => $produk]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Produk $produk)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +50,7 @@ class DashboardProdukController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produk $produk)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +58,7 @@ class DashboardProdukController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Produk $produk)
+    public function destroy(string $id)
     {
         //
     }

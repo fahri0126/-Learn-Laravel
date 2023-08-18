@@ -18,8 +18,11 @@ class ProdukFactory extends Factory
     {
         return [
             'nama' => $this->faker->unique()->word(),
+            'user_id' => $this->faker->numberBetween(1, 2),
             'kategori_id' => $this->faker->numberBetween(1, 6),
-            'pesans_id' => $this->faker->numberBetween(1, 10),
+            'pesan_id' => $this->faker->numberBetween(1, 10),
+            'unit_id' => $this->faker->numberBetween(1, 3),
+            'berat' => $this->faker->randomDigit(),
             'harga' => $this->faker->randomFloat()
         ];
     }

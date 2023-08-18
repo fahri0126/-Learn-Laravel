@@ -22,9 +22,11 @@ class Produk extends Model
         });
 
         $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {
-            $query->where('nama', 'like', '%' . $pencarian . '%')->orWhereHas('kategori', function ($query) use ($pencarian) {
-                $query->where('nama', 'like', '%' . $pencarian . '%');
-            });
+            $query->where('nama', 'like', '%' . $pencarian . '%')
+                ->orWhere('berat', 'like', '%' . $pencarian . '%')
+                ->orWhereHas('kategori', function ($query) use ($pencarian) {
+                    $query->where('nama', 'like', '%' . $pencarian . '%');
+                });
         });
 
         return $query;
@@ -39,6 +41,16 @@ class Produk extends Model
     public function kategori()
     {
         return $this->belongsTo(Kategori::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'nama';
     }
 
 
