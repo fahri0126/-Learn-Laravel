@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Biodata::factory(10)->create();
-        Pesan::factory(10)->create();
+        // Pesan::factory(10)->create();
         Kategori::factory(6)->create();
         Unit::factory(3)->create();
         // User::factory(2)->create();
-        Produk::factory(40)->create();
+        Produk::factory(10)->create();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class DashboardProdukController extends Controller
@@ -21,7 +22,9 @@ class DashboardProdukController extends Controller
      */
     public function create()
     {
-        //
+        $kategori = Produk::with('kategori')->get();
+        $unit = Produk::with('unit')->get();
+        return view('dashboard.produk.create', ['kategori' => $kategori->groupBy('kategori_id'), 'unit' => $unit->groupBy('unit_id')]);
     }
 
     /**
@@ -29,7 +32,18 @@ class DashboardProdukController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'nama' => 'required|unique:produks',
+            'kategori_id' => 'required',
+            'harga' => 'required',
+            'berat' => 'required',
+            'unit_id' => 'required',
+        ]);
+
+        Produk::create($validated);
+
+        return redirect('/dashboard/produk')->with('berhasil', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -62,6 +76,7 @@ class DashboardProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        //
+        Produk::destroy($produk->id);
+        return redirect('/dashboard/produk')->with('berhasil', 'Data berhasil dihapus');
     }
 }

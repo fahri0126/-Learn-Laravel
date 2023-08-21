@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             // $table->foreignId('user_id')->constrained('users');
             $table->foreignId('kategori_id')->constrained('kategoris');
-            $table->foreignId('pesan_id')->constrained('pesans');
+            // $table->foreignId('pesan_id')->constrained('pesans');
             $table->foreignId('unit_id')->constrained('units');
             $table->integer('berat')->nullable();
             $table->integer('harga')->nullable();
