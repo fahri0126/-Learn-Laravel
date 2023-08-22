@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\UNit;
+use App\Models\Kategori;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
@@ -22,9 +24,9 @@ class DashboardProdukController extends Controller
      */
     public function create()
     {
-        $kategori = Produk::with('kategori')->get();
-        $unit = Produk::with('unit')->get();
-        return view('dashboard.produk.create', ['kategori' => $kategori->groupBy('kategori_id'), 'unit' => $unit->groupBy('unit_id')]);
+        $kategori = Kategori::all();
+        $unit = Unit::all();
+        return view('dashboard.produk.create', ['kategori' => $kategori, 'unit' => $unit]);
     }
 
     /**
@@ -36,7 +38,7 @@ class DashboardProdukController extends Controller
         $validated = $request->validate([
             'nama' => 'required|unique:produks',
             'kategori_id' => 'required',
-            'harga' => 'required',
+            'harga' => 'required|numeric|min:500',
             'berat' => 'required',
             'unit_id' => 'required',
         ]);
@@ -60,7 +62,9 @@ class DashboardProdukController extends Controller
      */
     public function edit(Produk $produk)
     {
-        //
+        $kategori = Kategori::all();
+        $unit = Unit::all();
+        return view('dashboard.produk.edit', ['produk' => $produk, 'kategori' => $kategori, 'unit' => $unit]);
     }
 
     /**
@@ -68,7 +72,23 @@ class DashboardProdukController extends Controller
      */
     public function update(Request $request, Produk $produk)
     {
-        //
+        $rules = [
+            'nama' => 'required',
+            'kategori_id' => 'required',
+            'harga' => 'required|numeric|min:500',
+            'berat' => 'required',
+            'unit_id' => 'required',
+        ];
+
+        if ($request->nama != $produk->nama) {
+            $rules['nama'] = 'required|unique:produks';
+        }
+
+        $validated = $request->validate($rules);
+
+        Produk::where('id', $produk->id)->update($validated);
+
+        return redirect('/dashboard/produk')->with('berhasil', 'Update data berhasil');
     }
 
     /**

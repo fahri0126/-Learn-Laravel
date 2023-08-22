@@ -34,14 +34,19 @@
                 <tr class="fs-6">
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $data->nama }}</td>
-                  <td>{{ $data->kategori->nama }}</td>
-                  <td>{{ $data->berat }} {{ $data->unit->nama }}</td>
-                  <td>Rp. {{ $data->harga }}</td>
+                  <td>{{ $data->kategori->nama ?? 'N/A'}}</td>
+                  <td>
+                  @if($data->unit->nama ?? '' === null)
+                  {{ $data->berat }} {{ $data->unit->nama ?? 'N/A'}}
+                  @else
+                  N/A
+                  @endif
+                  </td>
+                  <td>Rp. {{ number_format($data->harga, 0, ',', ',') }}</td>
                   <td>
                     <div class="d-flex">
                     <a href="/dashboard/produk/{{ $data->nama }}"><i class="bi bi-eye fs-4 text-info"></i></a>
-                    <a href="/dashboard/produk/{{ $data->nama }}" class="mx-3"><i class="bi bi-pencil-square fs-4 text-warning"></i></a>
-                    
+                    <a href="/dashboard/produk/{{ $data->nama }}/edit" class="mx-3"><i class="bi bi-pencil-square fs-4 text-warning"></i></a>
                     <form action="/dashboard/produk/{{ $data->nama }}" method="post">
                     @method('delete')
                     @csrf

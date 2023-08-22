@@ -17,13 +17,16 @@
               <div class="card-body">
                 <p class="card-text fs-5">
                   <strong>{{ $data->nama }}</strong>
-                  <p class="card-text"><a class="text-success" href="/produk?kategori={{ $data->kategori->nama }}">{{ $data->kategori->nama }}</a></p>
+                  <p class="card-text">
+                    <a class="text-success"  @if ($data->kategori->nama ?? 'null' === null) href="/produk?kategori={{ $data->kategori->nama ?? 'N/A'}}" @endif>
+                      {{ $data->kategori->nama ?? 'N/A'}}</a>
+                  </p>
                 </p>
                 <div class="d-flex justify-content-between">
                 <p class="card-text">Rp. {{ $data->harga }}</p>
                 <a href=""><img class="" src="img/cart2.svg" alt=""></a>
               </div>
-              <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama }}</p>
+              <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama ?? 'N/A' }}</p>
               <div class="d-flex justify-content-center">
                 <a class="btn btn-outline-success" style="width: 200px">Beli</a>
               </div>

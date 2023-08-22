@@ -9,6 +9,8 @@ class Unit extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nama'];
+
     public function scopeCari($query, array $cari)
     {
         $query->when($cari['pencarian'] ?? false, function ($query, $pencarian) {

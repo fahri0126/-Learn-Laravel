@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             // $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('kategori_id')->constrained('kategoris');
+            $table->foreignId('kategori_id')->nullable()->constrained('kategoris')->onDelete('set NUll')->onUpdate('cascade');
             // $table->foreignId('pesan_id')->constrained('pesans');
-            $table->foreignId('unit_id')->constrained('units');
+            $table->foreignId('unit_id')->nullable()->constrained('units')->onDelete('set Null')->onUpdate('cascade');
             $table->integer('berat')->nullable();
             $table->integer('harga')->nullable();
             $table->timestamps();
