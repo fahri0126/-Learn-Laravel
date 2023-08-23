@@ -22,14 +22,15 @@
                       {{ $data->kategori->nama ?? 'N/A'}}</a>
                   </p>
                 </p>
-                <div class="d-flex justify-content-between">
-                <p class="card-text">Rp. {{ $data->harga }}</p>
-                <a href=""><img class="" src="img/cart2.svg" alt=""></a>
-              </div>
-              <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama ?? 'N/A' }}</p>
+                <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama ?? 'N/A' }}</p>
+                <p class="card-text">Rp. {{ number_format($data->harga, 0, ',', ',') }}</p>
+
+              @auth
               <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-success" style="width: 200px">Beli</a>
+                <a class="btn btn-outline-success" style="width: 200px">Add to cart <i class="bi bi-cart-plus"></i></a>
               </div>
+              @endauth
+
               </div>
             </div>
     </div>

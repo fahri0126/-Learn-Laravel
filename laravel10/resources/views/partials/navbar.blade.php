@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg shadow-sm navbar-dark bg-success fixed-top">
     <div class="container">
       <!-- kiri -->
-      <a class="navbar-brand fw-normal fs-4" href="#">fahri<span class="text-warning">Mart</span></a>
+      <a class="navbar-brand fw-normal fs-4" href="/">fahri<span class="text-warning">Mart</span></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,31 +9,40 @@
 
       <!-- kanan -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav nav-pills">
+        <ul class="navbar-nav nav-pills me-auto">
           <li class="nav-item">
             <a class="nav-link" href="/">Home</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a class="nav-link" href="/produk">Produk</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/kategori">Kategori</a>
+          </li>
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Products </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="/produk">Products</a></li>
               <li><a class="dropdown-item" href="/kategori">Categories</a></li>
-              {{-- <li><a class="dropdown-item" href="#">other</a></li> --}}
             </ul>
-          </li>
+          </li> --}}
         </ul>
 
         <ul class="navbar-nav nav-pills ms-auto me-2">
         @auth
-          <li class="nav-item dropdown bg-warning rounded">
-            <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link  text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list fs-4"></i></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+              @if(auth()->user()->role_id == 2)
+              <li><a class="dropdown-item text-info" href="/dashboard"><i class="bi bi-wrench-adjustable-circle"></i> Dashboard</a></li>
+              @endif
+              <li><a class="dropdown-item" href="/keranjang"><i class="bi bi-cart4"></i> Keranjang</a></li>
+              <li><a class="dropdown-item" href="/transaksi"><i class="bi bi-wallet"></i> Transaksi</a></li>
               <li><hr class="dropdown-divider"></hr></li>
               <li>
                 <form action="/logout" method="post">
                   @csrf
-                  <button type="submit" class="dropdown-item">Logout</button></form>
+                  <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-left"></i> Logout</button></form>
               </li>
             </ul>
           </li>
@@ -41,8 +50,8 @@
         @else
           @if($halaman == 'Login' | $halaman == 'Registration' )
           @else
-          <li class="nav-item ms-auto bg-warning rounded">
-            <a class="nav-link text-white" href="/login">Login</a>
+          <li class="nav-item">
+            <a class="nav-link text-center" href="/login"><i class="bi bi-box-arrow-in-right d-inline"></i> Login</a>
           </li>
           @endif
         @endauth

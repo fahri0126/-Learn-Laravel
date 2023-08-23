@@ -9,6 +9,7 @@ use App\Models\Pesan;
 use App\Models\Produk;
 use App\Models\Biodata;
 use App\Models\Kategori;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,7 +30,8 @@ class DatabaseSeeder extends Seeder
         // Pesan::factory(10)->create();
         Kategori::factory(6)->create();
         Unit::factory(3)->create();
-        // User::factory(2)->create();
+        Role::factory(2)->create();
+        User::factory(2)->create();
         Produk::factory(10)->create();
     }
 }

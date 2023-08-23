@@ -16,13 +16,13 @@
 <a href="/dashboard/unit/create" class="btn btn-primary mb-3">Tambah Satuan</a>
 
 
-<div class="table-responsive small col-lg-6">
+<div class="table-responsive small col-lg-3">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Satuan</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" class="text-center col-sm-2">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,12 +32,11 @@
                   <td>{{ $data->nama }}</td>
                   <td>
                     <div class="d-flex">
-                    <a href="/dashboard/unit/{{ $data->id }}" class="me-3"><i class="bi bi-eye fs-4 text-info"></i></a>
-                    <a href="/dashboard/unit/{{ $data->id }}/edit" class="me-3"><i class="bi bi-pencil-square fs-4 text-warning"></i></a>
+                    <a href="/dashboard/unit/{{ $data->id }}/edit" class="me-1 badge btn btn-warning"><i class="bi bi-pencil-square fs-6 d-inline"></i></a>
                     <form action="/dashboard/unit/{{ $data->id }}" method="post">
                       @method('delete')
                       @csrf
-                      <button class="border-0" onclick="return confirm('Hapus Data?')"><i class="bi bi-x-square fs-4 text-danger d-inline"></i></button>
+                      <button class="badge btn btn-danger" onclick="return confirm('Hapus Data?')"><i class="bi bi-x-square fs-6 d-inline"></i></button>
                     </form>
                     </div>
                   </td>

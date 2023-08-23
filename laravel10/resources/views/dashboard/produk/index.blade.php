@@ -17,7 +17,7 @@
             {{ $produk->links() }}
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive col-lg-8">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
@@ -26,7 +26,7 @@
                   <th scope="col">Kategori</th>
                   <th scope="col">Berat</th>
                   <th scope="col">Harga</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" class=" col-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,12 +45,12 @@
                   <td>Rp. {{ number_format($data->harga, 0, ',', ',') }}</td>
                   <td>
                     <div class="d-flex">
-                    <a href="/dashboard/produk/{{ $data->nama }}"><i class="bi bi-eye fs-4 text-info"></i></a>
-                    <a href="/dashboard/produk/{{ $data->nama }}/edit" class="mx-3"><i class="bi bi-pencil-square fs-4 text-warning"></i></a>
+                    <a href="/dashboard/produk/{{ $data->nama }}" class="badge btn btn-info"><i class="bi bi-eye fs-5 d-inline"></i></a>
+                    <a href="/dashboard/produk/{{ $data->nama }}/edit" class="mx-1 badge btn btn-warning"><i class="bi bi-pencil-square fs-5 d-inline"></i></a>
                     <form action="/dashboard/produk/{{ $data->nama }}" method="post">
                     @method('delete')
                     @csrf
-                    <button class="border-0 d-inline" onclick="return confirm('hapus data?')"><i class="bi bi-x-square fs-4 text-danger"></i></button>
+                    <button class="badge btn btn-danger" onclick="return confirm(' hapus produk {{ $data->nama }} ')"><i class="bi bi-x-square fs-5 d-inline"></i></button>
                     </form>
                     </div>
                   </td>

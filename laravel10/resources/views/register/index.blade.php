@@ -9,6 +9,7 @@
                     <h1 class="h3 mb-3 fw-normal text-center mb-4 mt-5">Registration</h1>
                 <form action="/register" method="post">
                     @csrf
+                    <input type="hidden" name="role_id" value="1">
                     <div class="form-floating">
                     <input type="text" name="name" class="form-control mb-1 rounded-0 @error('name') is-invalid @enderror" id="name" placeholder="name" value="{{ old('name') }}">
                     <label for="name">Name</label>
@@ -45,7 +46,7 @@
                     </div>
                     @enderror
                     </div>
-                    <button class="btn btn-primary w-100 py-2 mt-3" type="submit">Register</button>
+                    <button class="btn btn-primary w-100 py-2 mt-3 rounded-0" type="submit">Register</button>
                 </form>
                 <small class="d-block text-center mt-2 mb-5">Already registered ? <a href="/login">login</a></small>
             </main>

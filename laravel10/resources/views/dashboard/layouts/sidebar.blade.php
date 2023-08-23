@@ -33,7 +33,7 @@
 
               <hr class="my-3" />
 
-              <ul class="nav flex-column mb-auto">
+              <ul class="nav flex-column" style="min-height: 60vh">
                 <li class="nav-item">
                 <form action="/logout" method="post">
                     @csrf
@@ -42,7 +42,6 @@
                     Logout
                   </button>
                 </form>
-
                 </li>
               </ul>
             </div>

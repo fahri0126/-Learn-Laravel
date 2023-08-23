@@ -54,8 +54,9 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
-Route::resource('/dashboard/produk', DashboardProdukController::class)->middleware('auth');
-Route::resource('/dashboard/kategori', DashboardKategoriController::class)->middleware('auth');
-Route::resource('/dashboard/unit', DashboardUnitController::class)->middleware('auth');
+Route::group(['middleware' => ['auth', 'admin:2']], function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/dashboard/produk', DashboardProdukController::class)->names('dashboardProduk');
+    Route::resource('/dashboard/kategori', DashboardKategoriController::class)->names('dashboardKategori')->except('show');
+    Route::resource('/dashboard/unit', DashboardUnitController::class)->names('dashboardUnit')->except('show');
+});

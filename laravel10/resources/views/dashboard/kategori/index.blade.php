@@ -16,13 +16,13 @@
 
 <a href="/dashboard/kategori/create" class="btn btn-primary mb-3">Tambah Kategori</a>
 
-<div class="table-responsive small col-lg-6">
+<div class="table-responsive small col-lg-4">
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Kategori</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" class="col-sm-2 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -32,12 +32,11 @@
                   <td>{{ $data->nama }}</td>
                   <td>
                     <div class="d-flex">
-                    <a href="/dashboard/kategori/{{ $data->id }}" class="me-3"><i class="bi bi-eye fs-4 text-info"></i></a>
-                    <a href="/dashboard/kategori/{{ $data->id }}/edit" class="me-3"><i class="bi bi-pencil-square fs-4 text-warning"></i></a>
+                    <a href="/dashboard/kategori/{{ $data->id }}/edit" class="me-3 badge btn btn-warning"><i class="bi bi-pencil-square fs-5 d-inline"></i></a>
                     <form action="/dashboard/kategori/{{ $data->id }}" method="post">
                       @method('delete')
                       @csrf
-                      <button class="border-0" onclick="return confirm('Hapus kategori ?')"><i class="bi bi-x-square fs-4 text-danger d-inline border-0"></i></button>
+                      <button class="badge btn btn-danger" onclick="return confirm('Hapus kategori ?')"><i class="bi bi-x-square fs-5 d-inline"></i></button>
                     </form>
                     </div>
                   </td>
