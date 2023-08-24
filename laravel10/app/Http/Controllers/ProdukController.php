@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use App\Models\Produk;
+use Carbon\Carbon;
 
 class ProdukController extends Controller
 {
@@ -14,11 +15,9 @@ class ProdukController extends Controller
         return view('produk', ['halaman' => 'Produk', 'aksi' => '/produk', 'produk' => $produk->paginate(8)->withQueryString()]);
     }
 
-    // public function abc($id)
-    // {
-    //     $post = Produk::where('id', $id)->get();
-    //     return view('tes', ['tes' => $post]);
-    // }
+    public function keranjang($id)
+    {
+    }
 
     // public function show($id, $kategori)
     // {

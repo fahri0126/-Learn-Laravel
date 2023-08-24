@@ -26,9 +26,16 @@
                 <p class="card-text">Rp. {{ number_format($data->harga, 0, ',', ',') }}</p>
 
               @auth
+              <form action="/keranjang/{{ $data->id }}" method="post">
+                @csrf
+                <input type="hidden" name="kuantitas" value="1">
+                <input type="hidden" name="produk_id" value="{{ $data->id }}">
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="date" value="{{ $data->created_at }}">
               <div class="d-flex justify-content-center">
-                <a class="btn btn-outline-success" style="width: 200px">Add to cart <i class="bi bi-cart-plus"></i></a>
+                <button type="submit" class="btn btn-outline-success" style="width: 200px" href="/keranjang">Add to cart <i class="bi bi-cart-plus"></i></button>
               </div>
+              </form>
               @endauth
 
               </div>

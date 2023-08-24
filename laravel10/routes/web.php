@@ -13,6 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\KeranjangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,3 +61,6 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
     Route::resource('/dashboard/kategori', DashboardKategoriController::class)->names('dashboardKategori')->except('show');
     Route::resource('/dashboard/unit', DashboardUnitController::class)->names('dashboardUnit')->except('show');
 });
+
+Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');
+Route::post('/keranjang/{id}', [KeranjangController::class, 'store']);
