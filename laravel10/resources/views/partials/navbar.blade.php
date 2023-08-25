@@ -30,13 +30,15 @@
 
         <ul class="navbar-nav nav-pills ms-auto me-2">
         @auth
+          <li class="nav-item">
+            <a class="nav-link" href="/keranjang"><i class="bi bi-cart4 fs-5"></i></a>
+          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link  text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list fs-4"></i></a>
+            <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list fs-4"></i></a>
             <ul class="dropdown-menu">
               @if(auth()->user()->role_id == 2)
               <li><a class="dropdown-item text-info" href="/dashboard"><i class="bi bi-wrench-adjustable-circle"></i> Dashboard</a></li>
               @endif
-              <li><a class="dropdown-item" href="/keranjang"><i class="bi bi-cart4"></i> Keranjang</a></li>
               <li><a class="dropdown-item" href="/transaksi"><i class="bi bi-wallet"></i> Transaksi</a></li>
               <li><hr class="dropdown-divider"></hr></li>
               <li>

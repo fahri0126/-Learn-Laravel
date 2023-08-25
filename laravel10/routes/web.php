@@ -63,4 +63,4 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
 });
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');
-Route::post('/keranjang/{id}', [KeranjangController::class, 'store']);
+Route::post('/store', [KeranjangController::class, 'store'])->name('add-to-cart');
