@@ -11,7 +11,7 @@ class ProdukController extends Controller
 {
     public function index()
     {
-        $produk = Produk::latest('id', 'desc')->cari(request(['pencarian', 'kategori']));
+        $produk = Produk::with(['kategori', 'unit'])->latest('id', 'desc')->cari(request(['pencarian', 'kategori']));
         return view('produk', ['halaman' => 'Produk', 'aksi' => '/produk', 'produk' => $produk->paginate(8)->withQueryString()]);
     }
 

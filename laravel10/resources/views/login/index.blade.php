@@ -6,10 +6,12 @@
 <div class="container">
 
      @if (session()->has('berhasil'))
-        <div class="alert alert-success alert-dismissible fade show mt-2 col-md-12" role="alert">
+     <div class="row justify-content-center">
+        <div class="alert alert-success alert-dismissible fade show mt-2 col-md-6" role="alert" style="position: absolute; z-index: 9999">
           {{ session('berhasil') }}
           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+     </div>
       @endif
 
       @if (session()->has('LoginError'))

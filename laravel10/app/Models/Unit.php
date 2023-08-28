@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['nama'];
+
+    use HasFactory;
 
     public function scopeCari($query, array $cari)
     {

@@ -6,7 +6,7 @@
 </div>
 
 @if (session()->has('berhasil'))
-    <div class="alert alert-success alert-dismissible fade show mt-2 col-md-12" role="alert">
+    <div class="alert alert-success alert-dismissible fade show mt-2 col-md-8" role="alert">
         {{ session('berhasil') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>

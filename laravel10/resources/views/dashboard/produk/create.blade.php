@@ -12,7 +12,7 @@
   <div class="row mb-3">
     <div class="col-sm-10">
         <label for="nama" class="col-form-label">Nama Produk</label>
-        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="produk..." value="{{ old('nama') }}">
+        <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Produk..." value="{{ old('nama') }}">
         @error('nama')
             <div class="invalid-feedback">
                 {{ $message }}

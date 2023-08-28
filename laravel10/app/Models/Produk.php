@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produk extends Model
 {
-    use HasFactory;
-
     protected $fillable = ['nama', 'kategori_id', 'harga', 'berat', 'unit_id'];
+
+    use HasFactory;
 
     protected $guarded = ['id'];
 
@@ -48,10 +48,10 @@ class Produk extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function getRouteKeyName()
-    {
-        return 'nama';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'nama';
+    // }
 
 
     // // nama tabel

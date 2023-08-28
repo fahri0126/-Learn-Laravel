@@ -28,7 +28,7 @@
 
 
 {{-- landing --}}
-<section class="" style="height: 90vh">
+<section class="" >
     @yield('landing')
 </section>
 {{-- landing --}}

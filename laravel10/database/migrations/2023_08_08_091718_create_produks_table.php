@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            // $table->foreignId('user_id')->constrained('users');
             $table->foreignId('kategori_id')->nullable()->constrained('kategoris')->onDelete('set NUll')->onUpdate('cascade');
-            // $table->foreignId('pesan_id')->constrained('pesans');
             $table->foreignId('unit_id')->nullable()->constrained('units')->onDelete('set Null')->onUpdate('cascade');
             $table->integer('berat')->nullable();
             $table->integer('harga')->nullable();

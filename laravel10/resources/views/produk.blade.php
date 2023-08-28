@@ -31,6 +31,7 @@
                                     <input type="hidden" name="produk_id" value="{{ $data->id }}">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                     <input type="hidden" name="date" value="{{ $data->created_at }}">
+                                    <input type="hidden" name="status" value="0">
                                     <div class="d-flex justify-content-center">
                                         <button class="btn btn-outline-success" type="button" onclick="store(this)"
                                             style="width: 200px">Add to cart <i class="bi bi-cart-plus"></i></button>
@@ -56,6 +57,7 @@
         var produk_id = form.find("input[name='produk_id']").val();
         var user_id = form.find("input[name='user_id']").val();
         var date = form.find("input[name='date']").val();
+        var status = form.find("input[name='status']").val();
 
         $.ajax({
             type: "POST",
@@ -65,7 +67,8 @@
                 kuantitas: kuantitas,
                 produk_id: produk_id,
                 user_id: user_id,
-                date: date
+                date: date,
+                status: status
             },
             success: function (response) {
                 alert('data berhasil disimpan');
