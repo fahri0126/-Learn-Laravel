@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
+use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
 use PHPUnit\Event\Tracer\Tracer;
 
@@ -14,12 +15,9 @@ class TransaksiController extends Controller
         return view('transaksi.index', ['halaman' => 'Transaksi', 'transaksi' => $transaksi->get()]);
     }
 
-    public function store(Request $request)
+    public function detail($id)
     {
-        $transaksi = new Transaksi();
-        $transaksi->fill($request->all());
-        $transaksi->save();
-
-        return redirect('/keranjang/transaksi');
+        $transaksi = TransaksiDetail::with(['transaksi', 'produk'])->where('transaksi_id', $id);
+        return view('transaksi.detail', ['halaman' => 'Detail Transaksi', 'detail' => $transaksi->get()]);
     }
 }

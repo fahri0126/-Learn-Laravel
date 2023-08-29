@@ -48,10 +48,10 @@ class Produk extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    // public function getRouteKeyName()
-    // {
-    //     return 'nama';
-    // }
+    public function getRouteKeyName()
+    {
+        return 'nama';
+    }
 
 
     // // nama tabel

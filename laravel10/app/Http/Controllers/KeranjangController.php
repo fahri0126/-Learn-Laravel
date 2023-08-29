@@ -44,15 +44,13 @@ class KeranjangController extends Controller
         ]);
         $transaksi->save();
 
-        // foreach ($produk as $kd) {
-        $transaksi_detail = new TransaksiDetail([
-            'transaksi_id' => $transaksi->id,
-            'produk_id' => $request->produk_id,
-            'kuantitas' => $request->kuantitas
-        ]);
-        $transaksi_detail->save();
-        // }
-
-        return redirect('/keranjang');
+        foreach ($request->produk_id as $index => $produk_id) {
+            $transaksi_detail = new TransaksiDetail([
+                'transaksi_id' => $transaksi->id,
+                'produk_id' => $produk_id,
+                'kuantitas' => $request->kuantitas[$index]
+            ]);
+            $transaksi_detail->save();
+        }
     }
 }

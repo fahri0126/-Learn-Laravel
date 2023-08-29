@@ -2,29 +2,31 @@
 
 @section('landing')
 <div class="container mt-3">
+    @if (count($transaksi))
     @foreach ($transaksi as $data)
     <div class="col-md-12 my-1">
         <div class="h-55 p-2 bg-body-tertiary border rounded-3 d-flex justify-content-evenly">
-            <div class="col ms-3 pt-1 align-items-center lh-base">
-                <div class="row">
-                    {{-- <p>Nama Lengkap : {{ auth()->user()->name }}</p> --}}
-                </div>
+            <div class="col ms-3 pt-1 lh-base">
                 <div class="row">
                     <div class="col-md-12 d-flex gap-5">
-                        {{-- <p class="">Username : {{ auth()->user()->username }}</p> --}}
-                        <p class="">{{ $data->date }}</p>
                         <p class="">Total harga : <span class="text-danger">Rp. {{ number_format($data->harga) }}</span></p>
-                        <div class="ms-auto">
-                        <form action="/keranjang/transaksi/detail/store" method="post">
-                            @csrf
-                            <button href="/keranjang/transaksi/detail" class="text-info btn">detail</button>
-                        </form>
-                        </div>
+                        <p class="">{{ date('F | j | Y', strtotime($data->date)) }}</p>
+                        <p>User: {{ auth()->user()->username }}</p>
+                        <a class="text-info" href="/transaksi/{{ $data->id }}">Detail</a>
+                        
                     </div>
                 </div>
+            </div>
+            <div class="d-flex align-items-end">
+                <p class="text-secondary" style="font-size: 12px">{{ date('H:i', strtotime($data->date)) }}</p>
             </div>
         </div>
     </div>
         @endforeach
+        @else
+        <div class="container d-flex align-items-end justify-content-center" style="height: 40vh">
+            <h5 class="text-secondary">there is no item</h5>
+        </div>
+        @endif
 </div>
 @endsection

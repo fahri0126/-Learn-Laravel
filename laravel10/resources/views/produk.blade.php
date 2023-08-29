@@ -71,8 +71,7 @@
                 status: status
             },
             success: function (response) {
-                alert('data berhasil disimpan');
-                // Lakukan tindakan lain setelah berhasil disimpan
+                
             },
             error: function (error) {
                 console.log(error);

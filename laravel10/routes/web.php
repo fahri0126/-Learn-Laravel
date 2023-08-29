@@ -13,7 +13,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\DashboardKategoriController;
-use App\Http\Controllers\DetailTransaksiController;
+use App\Http\Controllers\TransaksiDetailController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\Keranjang;
@@ -67,7 +67,5 @@ Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang
 Route::post('/store', [KeranjangController::class, 'store'])->name('add-to-cart');
 Route::post('/keranjang/status', [KeranjangController::class, 'status'])->middleware('auth');
 
-Route::get('/keranjang/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
-Route::post('/keranjang/transaksi/store', [TransaksiController::class, 'store'])->middleware('auth');
-Route::get('/keranjang/transaksi/detail', [DetailTransaksiController::class, 'index'])->middleware('auth');
-Route::post('/keranjang/transaksi/detail/store', [DetailTransaksiController::class, 'index'])->middleware('auth');
+Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
+Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middleware('auth');
