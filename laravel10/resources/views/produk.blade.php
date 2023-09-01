@@ -71,7 +71,7 @@
                 status: status
             },
             success: function (response) {
-                
+                updateCartBadgeOnChange();
             },
             error: function (error) {
                 console.log(error);

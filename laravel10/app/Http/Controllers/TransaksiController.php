@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Models\TransaksiDetail;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 use Illuminate\Http\Request;
 use PHPUnit\Event\Tracer\Tracer;
 
@@ -19,5 +20,20 @@ class TransaksiController extends Controller
     {
         $transaksi = TransaksiDetail::with(['transaksi', 'produk'])->where('transaksi_id', $id);
         return view('transaksi.detail', ['halaman' => 'Detail Transaksi', 'detail' => $transaksi->get()]);
+    }
+
+    public function downloadpdf($id)
+    {
+        $data = TransaksiDetail::with(['transaksi', 'produk'])->where('transaksi_id', $id)->get();
+
+        view()->share('data', $data);
+        $pdf = PDF::loadview('transaksi.struk-pdf');
+        $pdf->setPaper([0, 0, 260, 383.5], 'portrait');
+        $pdf->setOption('margin-left', 0);     // Set the left margin in millimeters
+        $pdf->setOption('margin-right', 0);    // Set the right margin in millimeters
+        $pdf->setOption('margin-top', 0);      // Set the top margin in millimeters
+        $pdf->setOption('margin-bottom', 0);
+
+        return $pdf->download('struk.pdf');
     }
 }

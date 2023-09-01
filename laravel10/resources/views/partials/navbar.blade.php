@@ -19,19 +19,16 @@
           <li class="nav-item">
             <a class="nav-link" href="/kategori">Kategori</a>
           </li>
-          {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Products </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/produk">Products</a></li>
-              <li><a class="dropdown-item" href="/kategori">Categories</a></li>
-            </ul>
-          </li> --}}
         </ul>
 
         <ul class="navbar-nav nav-pills ms-auto me-2">
         @auth
           <li class="nav-item">
-            <a class="nav-link" href="/keranjang"><i class="bi bi-cart4 fs-5"></i></a>
+            <a class="nav-link" href="/keranjang">
+             <i class="bi bi-cart4 fs-5 position-relative">
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cart-badge" style="font-size: 10px; display: none;"></span>
+            </i>
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/transaksi"><i class="bi bi-bag-check-fill fs-5"></i></a>
@@ -42,8 +39,6 @@
               @if(auth()->user()->role_id == 2)
               <li><a class="dropdown-item text-info" href="/dashboard"><i class="bi bi-wrench-adjustable-circle"></i> Dashboard</a></li>
               @endif
-              {{-- <li class="d-flex"><a class="dropdown-item" href="/transaksi"><i class="bi bi-wallet"></i> Transaksi </a></li> --}}
-              {{-- <li><hr class="dropdown-divider"></hr></li> --}}
               <li>
                 <form action="/logout" method="post">
                   @csrf
@@ -77,3 +72,7 @@
       <!-- kanan -->
     </div>
   </nav>
+
+  <script>
+    
+  </script>

@@ -34,6 +34,37 @@
 {{-- landing --}}
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    
+
+<script>
+    function updateCartBadge() {
+        $.ajax({
+            type: 'GET',
+            url: '/keranjang/get-count',
+            success: function(response) {
+                var cartBadge = $('.cart-badge');
+                if (response.count > 0) {
+                    cartBadge.text(response.count).show();
+                } else {
+                    cartBadge.hide();
+                }
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        updateCartBadge();
+    });
+
+    // Fungsi ini akan memperbarui cart badge setiap kali ada perubahan pada keranjang, seperti menambah atau mengurangi produk
+    function updateCartBadgeOnChange() {
+        // Panggil updateCartBadge() setelah perubahan pada keranjang
+        // Misalnya, setelah menambah atau mengurangi produk menggunakan AJAX
+        updateCartBadge();
+    }
+</script>
+
 </body>
 </html>

@@ -14,6 +14,7 @@ class TransaksiDetail extends Model
     {
         return $this->belongsTo(Transaksi::class);
     }
+
     public function produk()
     {
         return $this->belongsTo(Produk::class);

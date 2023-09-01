@@ -36,9 +36,9 @@ class DashboardProdukController extends Controller
     {
 
         $validated = $request->validate([
-            'nama' => 'required|unique:produks',
+            'nama' => 'required|unique:produks|max:50',
             'kategori_id' => 'required',
-            'harga' => 'required|numeric|min:500',
+            'harga' => 'required|numeric|min:500|max:1000000000',
             'berat' => 'required',
             'unit_id' => 'required',
         ]);

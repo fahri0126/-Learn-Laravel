@@ -6,12 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "aws/aws-sdk-php": "^3.280",
+        "barryvdh/laravel-dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.1",
         "jzonta/faker-restaurant": "^2.0",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.2",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "symfony/http-client": "^6.3",
+        "symfony/mailgun-mailer": "^6.3",
+        "symfony/postmark-mailer": "^6.3"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
