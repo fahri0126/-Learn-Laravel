@@ -18,7 +18,7 @@ class TransaksiController extends Controller
 
     public function detail($id)
     {
-        $transaksi = TransaksiDetail::with(['transaksi', 'produk'])->where('transaksi_id', $id);
+        $transaksi = TransaksiDetail::with(['transaksi', 'produk'])->orderBy('produk_id', 'asc')->where('transaksi_id', $id);
         return view('transaksi.detail', ['halaman' => 'Detail Transaksi', 'detail' => $transaksi->get()]);
     }
 
@@ -29,9 +29,9 @@ class TransaksiController extends Controller
         view()->share('data', $data);
         $pdf = PDF::loadview('transaksi.struk-pdf');
         $pdf->setPaper([0, 0, 260, 383.5], 'portrait');
-        $pdf->setOption('margin-left', 0);     // Set the left margin in millimeters
-        $pdf->setOption('margin-right', 0);    // Set the right margin in millimeters
-        $pdf->setOption('margin-top', 0);      // Set the top margin in millimeters
+        $pdf->setOption('margin-left', 0);
+        $pdf->setOption('margin-right', 0);
+        $pdf->setOption('margin-top', 0);
         $pdf->setOption('margin-bottom', 0);
 
         return $pdf->download('struk.pdf');

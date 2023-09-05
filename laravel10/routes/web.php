@@ -72,5 +72,5 @@ Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middlewar
 Route::get('/downloadpdf/{id}', [TransaksiController::class, 'downloadpdf'])->middleware('auth');
 
 // send email
-Route::get('/getmail', [EmailController::class, 'index']);
-Route::post('/sendmail', [EmailController::class, 'sendEmail']);
+Route::get('/getmail/{id}', [EmailController::class, 'index']);
+Route::post('/sendmail/{id}', [EmailController::class, 'index']);

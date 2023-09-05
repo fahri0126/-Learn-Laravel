@@ -33,44 +33,30 @@ class KeranjangController extends Controller
 
     public function status(Request $request)
     {
-        // Calculate the total price
-        $totalHarga = 0;
-        foreach ($request->produk_id as $index => $produk_id) {
-            $item = Keranjang::where([
-                'produk_id' => $produk_id,
-                'user_id' => $request->user_id,
-                'status' => 0
-            ])->first();
-            if ($item) {
-                $totalHarga += $item->produk->harga * $request->kuantitas[$index];
-            }
-        }
+        $keranjang = Keranjang::where('status', 0)->get();
+        $totalHarga = $keranjang->sum(function ($item) {
+            return $item->produk->harga * $item->kuantitas;
+        });
 
-        // Create a new transaction with the total price
         $transaksi = new Transaksi([
             'user_id' => $request->user_id,
             'date' => $request->date,
-            'harga' => $totalHarga, // Use the calculated total price here
+            'harga' => $totalHarga
         ]);
         $transaksi->save();
 
-        // Save transaction details
-        foreach ($request->produk_id as $index => $produk_id) {
+        foreach ($keranjang as $item) {
             $transaksi_detail = new TransaksiDetail([
                 'transaksi_id' => $transaksi->id,
-                'produk_id' => $produk_id,
-                'kuantitas' => $request->kuantitas[$index]
+                'produk_id' => $item->produk_id,
+                'kuantitas' => $item->kuantitas
             ]);
             $transaksi_detail->save();
         }
 
-        // Clear the cart
         Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->delete();
 
-        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])
-            ->where('user_id', auth()->user()->id)
-            ->where('status', 0)
-            ->get();
+        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
 
         $view = view('partials.cart', ['keranjang' => $keranjang])->render();
 

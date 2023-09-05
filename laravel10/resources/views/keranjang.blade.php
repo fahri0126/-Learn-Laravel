@@ -4,19 +4,10 @@
 <div class="container py-4">
         @include('partials.cart')
 </div>
-@php
-    $totalHarga = 0;
-@endphp
-
-@foreach ($keranjang as $item)
-@php
-    $totalHarga += $item ->produk->harga * $item->kuantitas;
-@endphp
-@endforeach
 
 <nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary shadow-lg">
   <div class="container">
-    <p class="">Total harga : <span class="text-danger total-harga">{{ number_format($totalHarga )}}</span></p>
+        <p class="">Total harga : <span class="text-danger">Rp. </span><span class="text-danger total-harga"></span> </p>
     <form class="check-out-form">
         @csrf
         <input type="hidden" name="status" value="{{ 1 }}">
@@ -133,12 +124,11 @@
         url: '/keranjang/totalHarga',
         success: function(response) {
             var totalHarga = $('.total-harga');
+            // Menggunakan toLocaleString() untuk mengatur format angka
+            var formattedHarga = response.harga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });     
             totalHarga.text(response.harga);
-            if (response.harga > 0) {
-                totalHarga.show();
-            } else {
-                totalHarga.hide();
-            }
+            
+            totalHarga.show();
         },
         error: function(error) {
             console.log(error);
