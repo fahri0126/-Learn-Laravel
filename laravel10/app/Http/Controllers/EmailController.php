@@ -20,7 +20,7 @@ class EmailController extends Controller
         ];
 
         $emailTo = $request->inputMail;
-        Mail::to("$emailTo")->send(new sendMail($email));
+        Mail::to("$emailTo")->cc('fahri010206@gmail.com')->send(new sendMail($email));
         if (Mail::flushMacros()) {
             return 'error';
         }

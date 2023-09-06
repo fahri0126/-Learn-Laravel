@@ -33,6 +33,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/transaksi"><i class="bi bi-bag-check-fill fs-5"></i></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/whislist"><i class="bi bi-bookmark-fill fs-5"></i></a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list fs-4"></i></a>
             <ul class="dropdown-menu">
@@ -42,7 +45,8 @@
               <li>
                 <form action="/logout" method="post">
                   @csrf
-                  <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-left"></i> Logout</button></form>
+                  <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-left"></i> Logout</button>
+                </form>
               </li>
             </ul>
           </li>
@@ -57,7 +61,7 @@
         @endauth
         </ul>
         
-        @if ($halaman ===  'Home' || $halaman == 'Login' || $halaman == 'Registration' || $halaman == 'Dashboard' || $halaman == 'Keranjang' || $halaman == 'Transaksi' || $halaman == 'Detail Transaksi')
+        @if ($halaman ===  'Home' || $halaman == 'Login' || $halaman == 'Registration' || $halaman == 'Dashboard' || $halaman == 'Keranjang' || $halaman == 'Transaksi' || $halaman == 'Detail Transaksi' || $halaman == 'Hold Item' || $halaman = 'Whislist')
         @else
          <form class="d-flex" action="" role="search">
             @if (request('kategori'))

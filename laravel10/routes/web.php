@@ -11,6 +11,7 @@ use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\TransaksiController;
@@ -64,6 +65,8 @@ Route::post('/keranjang/status', [KeranjangController::class, 'status'])->middle
 Route::post('/keranjang/update-quantity', [KeranjangController::class, 'updateQuantity']);
 Route::get('/keranjang/get-count', [KeranjangController::class, 'getKeranjangCount']);
 Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga']);
+Route::post('/keranjang/hold', [KeranjangController::class, 'hold']);
+Route::get('/keranjang/hold-item', [KeranjangController::class, 'holdItem']);
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
 Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middleware('auth');
@@ -73,4 +76,6 @@ Route::get('/downloadpdf/{id}', [TransaksiController::class, 'downloadpdf'])->mi
 
 // send email
 Route::get('/getmail/{id}', [EmailController::class, 'index']);
-Route::post('/sendmail/{id}', [EmailController::class, 'index']);
+
+
+Route::get('/whislist', [WhislistController::class, 'index']);

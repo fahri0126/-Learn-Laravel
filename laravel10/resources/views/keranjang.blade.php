@@ -7,7 +7,18 @@
 
 <nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary shadow-lg">
   <div class="container">
-        <p class="">Total harga : <span class="text-danger">Rp. </span><span class="text-danger total-harga"></span> </p>
+      <p class="">Total harga : <span class="text-danger">Rp. </span><span class="text-danger total-harga"></span> </p>
+      <div class="d-flex">
+        <a href="/keranjang/hold-item" class="d-inline mt-3 me-4">hold item</a>
+    <form class="hold-form">
+        @csrf
+        <input id="holdStatus" type="hidden" name="status" value="{{ 2 }}">
+        @if (count($keranjang) == 0 )
+        <button type="button" class="ms-auto btn btn-secondary disabled me-3" onclick="holdButton()">Hold</button>
+        @else
+        <button id="holdy" type="button" class="ms-auto btn btn-secondary me-3" onclick="holdButton()">Hold</button>
+        @endif
+    </form>
     <form class="check-out-form">
         @csrf
         <input type="hidden" name="status" value="{{ 1 }}">
@@ -23,6 +34,7 @@
         <button id="checkout" type="button" class="ms-auto btn btn-danger" onclick="store(this)">Checkout</button>
         @endif
     </form>
+    </div>
   </div>
 </nav>
 
@@ -51,13 +63,36 @@
             },
             success: function (response) {
                 $('#cart-content').html(response.html);
-
                 $('#checkout').prop('disabled', true);
+                $('#holdy').prop('disabled', true);
                 updateCartBadgeOnChange();
                 updateHarga()
                 
             },
             error: function (error) {
+                console.log(error).closest('form');
+            }
+        });
+    }
+
+    function holdButton(){
+        var hold = $("#holdStatus").val();
+        $.ajax({
+            type: "POST",
+            url: "/keranjang/hold",
+            data : {
+                _token: "{{ csrf_token() }}",
+                holdStatus : hold
+            },
+            success: function (response) {
+                $('#holdy').prop('disabled', true);
+                $('#checkout').prop('disabled', true);
+                updateHarga()
+                $('#cart-content').html(response.html);
+                updateCartBadgeOnChange();
+                
+            },
+            error: function(error){
                 console.log(error);
             }
         });

@@ -25,18 +25,26 @@
                             <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama ?? 'N/A' }}</p>
                             <p class="card-text">Rp. {{ number_format($data->harga, 0, ',', ',') }}</p>
                             @auth
+                            <div class="d-flex">
                                 <form class="add-to-cart-form">
                                     @csrf
                                     <input type="hidden" name="kuantitas" value="1">
                                     <input type="hidden" name="produk_id" value="{{ $data->id }}">
                                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                    <input type="hidden" name="date" value="{{ $data->created_at }}">
+                                    <input type="hidden" name="date" value="{{ now() }}">
                                     <input type="hidden" name="status" value="0">
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-outline-success" type="button" onclick="store(this)"
-                                            style="width: 200px">Add to cart <i class="bi bi-cart-plus"></i></button>
+                                        <button class="btn btn-outline-success" type="button" onclick="store(this)"style="width: 200px">
+                                            Add to cart <i class="bi bi-cart-plus"></i>
+                                        </button> 
                                     </div>
                                 </form>
+                                <form class="whislist">
+                                <button class="btn border-0">
+                                    <i class="bi bi-bookmark-plus text-success fs-5"></i>
+                                </button>
+                                </form>
+                            </div>
                             @endauth
                         </div>
                     </div>
