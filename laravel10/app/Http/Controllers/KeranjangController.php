@@ -24,9 +24,24 @@ class KeranjangController extends Controller
             $item->update(['status' => 2]);
         }
 
-        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
+        $keranjang = Keranjang::with(['user', 'produk', 'unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
 
         $view = view('partials.cart', ['keranjang' => $keranjang])->render();
+
+        return response()->json(['html' => $view]);
+    }
+
+    public function unhold($id)
+    {
+        $keranjang = Keranjang::where(['user_id' => auth()->user()->id, 'status' => 2, 'id' => $id])->get();
+
+        foreach ($keranjang as $item) {
+            $item->update(['status' => 0]);
+        }
+
+        $keranjang = Keranjang::with(['user', 'produk', 'unit'])->where(['user_id' => auth()->user()->id, 'status' => 2])->get();
+
+        $view = view('partials.trx', ['keranjang' => $keranjang])->render();
 
         return response()->json(['html' => $view]);
     }

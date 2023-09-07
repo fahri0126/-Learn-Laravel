@@ -66,6 +66,7 @@ Route::post('/keranjang/update-quantity', [KeranjangController::class, 'updateQu
 Route::get('/keranjang/get-count', [KeranjangController::class, 'getKeranjangCount']);
 Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga']);
 Route::post('/keranjang/hold', [KeranjangController::class, 'hold']);
+Route::post('/keranjang/unHold/{id}', [KeranjangController::class, 'unhold']);
 Route::get('/keranjang/hold-item', [KeranjangController::class, 'holdItem']);
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
@@ -79,3 +80,4 @@ Route::get('/getmail/{id}', [EmailController::class, 'index']);
 
 
 Route::get('/whislist', [WhislistController::class, 'index']);
+Route::post('/whislist-add', [WhislistController::class, 'store']);

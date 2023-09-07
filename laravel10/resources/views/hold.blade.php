@@ -2,14 +2,25 @@
 
 @section('landing')
 <div class="container">
-        <table class="table border mt-5">
-        <tbody>
-            @foreach ($keranjang as $data)
-            <tr class="col-sm-2">
-                <td>trx<span class="text-danger">{{ date('Ymd', strtotime($data->date)) }}</span> - <button class="btn text-info border-0">Buka</button> </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+      @include('partials.trx')
 </div>
+
+<script>
+    function tombolBuka(keranjangId){
+        $.ajax({
+            type: "POST",
+            url: "/keranjang/unHold/" + keranjangId,
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(response){
+                $('#trx').html(response.html);
+                updateCartBadgeOnChange();
+            },
+            error: function (error){
+
+            }
+        });
+    }
+</script>
 @endsection
