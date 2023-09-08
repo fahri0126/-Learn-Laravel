@@ -6,12 +6,14 @@
 </div>
 
 <script>
-    function tombolBuka(keranjangId){
+    function tombolBuka(){
+        var kode_transaksi = $('#kodeTrx').val();
         $.ajax({
             type: "POST",
-            url: "/keranjang/unHold/" + keranjangId,
+            url: "/keranjang/unhold",
             data: {
-                _token: "{{ csrf_token() }}"
+                _token: "{{ csrf_token() }}",
+                kode_transaksi: kode_transaksi
             },
             success: function(response){
                 $('#trx').html(response.html);

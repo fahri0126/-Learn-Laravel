@@ -63,11 +63,11 @@ Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang
 Route::post('/store', [KeranjangController::class, 'store'])->name('add-to-cart');
 Route::post('/keranjang/status', [KeranjangController::class, 'status'])->middleware('auth');
 Route::post('/keranjang/update-quantity', [KeranjangController::class, 'updateQuantity']);
-Route::get('/keranjang/get-count', [KeranjangController::class, 'getKeranjangCount']);
-Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga']);
+Route::get('/keranjang/get-count', [KeranjangController::class, 'getKeranjangCount'])->middleware('auth');
+Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga'])->middleware('auth');
 Route::post('/keranjang/hold', [KeranjangController::class, 'hold']);
-Route::post('/keranjang/unHold/{id}', [KeranjangController::class, 'unhold']);
-Route::get('/keranjang/hold-item', [KeranjangController::class, 'holdItem']);
+Route::post('/keranjang/unhold', [KeranjangController::class, 'unhold']);
+Route::get('/keranjang/hold-item/', [KeranjangController::class, 'holdItem'])->middleware('auth');
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
 Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middleware('auth');
@@ -76,8 +76,9 @@ Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middlewar
 Route::get('/downloadpdf/{id}', [TransaksiController::class, 'downloadpdf'])->middleware('auth');
 
 // send email
-Route::get('/getmail/{id}', [EmailController::class, 'index']);
+Route::get('/getmail/{id}', [EmailController::class, 'index'])->middleware('auth');
 
 
-Route::get('/whislist', [WhislistController::class, 'index']);
-Route::post('/whislist-add', [WhislistController::class, 'store']);
+Route::get('/favorit', [WhislistController::class, 'index'])->middleware('auth');
+Route::post('/favorit-add', [WhislistController::class, 'store']);
+Route::post('/favorit-delete/{id}', [WhislistController::class, 'destroy']);

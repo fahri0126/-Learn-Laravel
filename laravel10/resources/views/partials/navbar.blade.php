@@ -34,7 +34,7 @@
             <a class="nav-link" href="/transaksi"><i class="bi bi-bag-check-fill fs-5"></i></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/whislist"><i class="bi bi-bookmark-fill fs-5"></i></a>
+            <a class="nav-link" href="/favorit"><i class="bi bi-bookmark-fill fs-5"></i></a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-list fs-4"></i></a>

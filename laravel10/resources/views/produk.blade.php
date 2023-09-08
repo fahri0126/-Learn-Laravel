@@ -23,28 +23,31 @@
                                 </p>
                             </p>
                             <p class="card-text">berat : {{ $data->berat }} {{ $data->unit->nama ?? 'N/A' }}</p>
-                            <p class="card-text">Rp. {{ number_format($data->harga, 0, ',', ',') }}</p>
+                            <p class="card-text">Rp. {{ number_format($data->harga) }}</p>
                             @auth
                             <div class="d-flex col-md-3">
                                 <form class="add-to-cart-form">
                                     @csrf
-                                        <input type="hidden" name="kuantitas" value="1">
-                                        <input type="hidden" name="produk_id" value="{{ $data->id }}">
-                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                        <input type="hidden" name="date" value="{{ now() }}">
-                                        <input type="hidden" name="status" value="0">
+                                    <input type="hidden" name="kuantitas" value="1">
+                                    <input type="hidden" name="produk_id" value="{{ $data->id }}">
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                    <input type="hidden" name="date" value="{{ now() }}">
+                                    <input type="hidden" name="status" value="0">
                                     <div class="d-flex justify-content-center">
                                         <button class="btn btn-outline-success" type="button" onclick="store(this)"style="width: 190px">
                                             Add to cart <i class="bi bi-cart-plus"></i>
                                         </button> 
                                     </div>
-                                    </form>
-                                    <form class="whislist">
-                                        <input type="hidden" name="prdId" id="prdId" value="{{ $data->id }}">
-                                        <div class="d-flex justify-content-center ms-1">
-                                            <button type="button" class="btn btn-outline-success" onclick="addWhislist()"><i class="bi bi-star fs-6"></i></button>
-                                        </div>
-                                    </form>
+                                </form>
+                                <form class="whislist">
+                                    <div class="d-flex justify-content-center ms-1">
+                                        @if (!count($whislist))
+                                            <button id="starBtn-{{ $data->id }}" type="button" class="btn btn-outline-success" onclick="addWhislist({{ $data->id }})"><i class="bi bi-star fs-6"></i></button>
+                                        @else    
+                                            <button id="unstarBtn-{{ $data->id }}" type="button" class="btn btn-success" onclick="removeWhislist({{ $data->id }})"><i class="bi bi-star-fill fs-6"></i></button>
+                                        @endif
+                                    </div>
+                                </form>
                             </div>
                             @endauth
                         </div>
@@ -88,20 +91,39 @@
         });
     }
 
-    function addWhislist(){
-        var prdId = $('#prdId').val();
+    function addWhislist(prdId){
         $.ajax({
             type: "POST",
-            url: "/whislist-add",
+            url: "/favorit-add",
             data: {
                  _token: "{{ csrf_token() }}",
                 prdId: prdId
             },
             success: function(response){
-                alert('awikwok');
+                $('#starBtn-' + prdId).prop('disabled', true);
+                $('#unstarBtn-' + prdId).show();
+                $('#starBtn-' + prdId).hide();
             },
             error: function(error){
+                console.error(error);
+            }
+        });
+    }
 
+    function removeWhislist(prdId){
+        $.ajax({
+            type: "POST",
+            url: "/favorit-delete/" + prdId,
+            data: {
+                 _token: "{{ csrf_token() }}",
+                prdId: prdId
+            },
+            success: function(response){
+                $('#unstarBtn-' + prdId).hide();
+                $('#starBtn-' + prdId).show();
+            },
+            error: function(error){
+                console.error(error);
             }
         });
     }

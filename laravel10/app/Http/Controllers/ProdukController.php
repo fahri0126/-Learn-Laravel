@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
-use Illuminate\Http\Request;
 use App\Models\Produk;
-use Carbon\Carbon;
+use App\Models\Whislist;
 
 class ProdukController extends Controller
 {
     public function index()
     {
         $produk = Produk::with(['kategori', 'unit'])->latest('id', 'desc')->cari(request(['pencarian', 'kategori']));
-        return view('produk', ['halaman' => 'Produk', 'aksi' => '/produk', 'produk' => $produk->paginate(8)->withQueryString()]);
-    }
-
-    public function keranjang($id)
-    {
+        return view('produk', ['halaman' => 'Produk', 'aksi' => '/produk', 'produk' => $produk->paginate(8)->withQueryString(), 'whislist' => Whislist::where(['user_id' => auth()->user()->id, 'produk_id' => 3])->get()]);
     }
 
     // public function show($id, $kategori)

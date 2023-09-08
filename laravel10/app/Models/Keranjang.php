@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Keranjang extends Model
 {
-    protected $fillable = ['date', 'user_id', 'produk_id', 'kuantitas', 'status'];
+    protected $fillable = ['date', 'user_id', 'produk_id', 'kuantitas', 'status', 'kode_transaksi'];
 
     use HasFactory;
 

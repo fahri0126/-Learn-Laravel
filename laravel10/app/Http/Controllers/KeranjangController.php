@@ -21,7 +21,8 @@ class KeranjangController extends Controller
         $keranjang = Keranjang::where(['user_id' => auth()->user()->id, 'status' => 0])->get();
 
         foreach ($keranjang as $item) {
-            $item->update(['status' => 2]);
+            $kode_transaksi = 'TRX' . date('YmdHis');
+            $item->update(['status' => 2, 'kode_transaksi' => $kode_transaksi]);
         }
 
         $keranjang = Keranjang::with(['user', 'produk', 'unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
@@ -31,12 +32,12 @@ class KeranjangController extends Controller
         return response()->json(['html' => $view]);
     }
 
-    public function unhold($id)
+    public function unhold(Request $request)
     {
-        $keranjang = Keranjang::where(['user_id' => auth()->user()->id, 'status' => 2, 'id' => $id])->get();
+        $keranjang = Keranjang::where(['user_id' => auth()->user()->id, 'kode_transaksi' => $request->kode_transaksi])->get();
 
         foreach ($keranjang as $item) {
-            $item->update(['status' => 0]);
+            $item->update(['status' => 0, 'kode_transaksi' => null]);
         }
 
         $keranjang = Keranjang::with(['user', 'produk', 'unit'])->where(['user_id' => auth()->user()->id, 'status' => 2])->get();
@@ -48,7 +49,7 @@ class KeranjangController extends Controller
 
     public function holdItem()
     {
-        $produk = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 2)->get();
+        $produk = Keranjang::with(['user', 'produk', 'Unit'])->where(['user_id' =>  auth()->user()->id, 'status' => 2])->get();
         return view('hold', ['halaman' => 'Hold Item', 'keranjang' => $produk]);
     }
 
