@@ -15,8 +15,7 @@
                           <span class="text-danger">{{ $item->kode_transaksi }}</span>
                           <span class="ms-3">-</span>
                           <form>
-                              <input type="hidden" id="kodeTrx" value="{{ $item->kode_transaksi }}">
-                              <button type="button" class="btn text-info border-0" onclick="tombolBuka()">Buka</button>
+                              <button type="button" class="btn text-info border-0" onclick="tombolBuka('{{ $item->kode_transaksi }}')">Buka</button>
                           </form>
                       </td>
                   </tr>

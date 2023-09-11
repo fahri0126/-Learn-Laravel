@@ -15,7 +15,7 @@
                             <p class="card-text fs-5">
                                 <strong>{{ $data->nama }}</strong>
                                 <p class="card-text">
-                                    @if ($data->kategori)
+                                    @if (count($produk))
                                         <a class="text-success" href="/produk?kategori={{ $data->kategori->nama }}"> {{ $data->kategori->nama }}</a>
                                     @else
                                         N/A
@@ -41,10 +41,15 @@
                                 </form>
                                 <form class="whislist">
                                     <div class="d-flex justify-content-center ms-1">
-                                        @if (!count($whislist))
-                                            <button id="starBtn-{{ $data->id }}" type="button" class="btn btn-outline-success" onclick="addWhislist({{ $data->id }})"><i class="bi bi-star fs-6"></i></button>
+                                       @php
+                                            $wishlistStatus = cekProduk(auth()->user()->id, $data->id);
+                                        @endphp
+                                        @if ($wishlistStatus == 'remove')
+                                        <button id="unstarBtn-{{ $data->id }}" type="button" class="btn btn-success" onclick="removeWhislist({{ $data->id }})"><i class="bi bi-star-fill fs-6"></i></button>
+                                        <button id="starBtn-{{ $data->id }}" type="button" class="btn btn-outline-success" style="display: none" onclick="addWhislist({{ $data->id }})"><i class="bi bi-star fs-6"></i></button>
                                         @else    
-                                            <button id="unstarBtn-{{ $data->id }}" type="button" class="btn btn-success" onclick="removeWhislist({{ $data->id }})"><i class="bi bi-star-fill fs-6"></i></button>
+                                        <button id="starBtn-{{ $data->id }}" type="button" class="btn btn-outline-success" onclick="addWhislist({{ $data->id }})"><i class="bi bi-star fs-6"></i></button>
+                                        <button id="unstarBtn-{{ $data->id }}" type="button" class="btn btn-success" style="display: none" onclick="removeWhislist({{ $data->id }})"><i class="bi bi-star-fill fs-6"></i></button>
                                         @endif
                                     </div>
                                 </form>
@@ -101,8 +106,8 @@
             },
             success: function(response){
                 $('#starBtn-' + prdId).prop('disabled', true);
-                $('#unstarBtn-' + prdId).show();
                 $('#starBtn-' + prdId).hide();
+                $('#unstarBtn-' + prdId).show();
             },
             error: function(error){
                 console.error(error);
@@ -119,6 +124,7 @@
                 prdId: prdId
             },
             success: function(response){
+                $('#unstarBtn-' + prdId).prop('disabled', true);
                 $('#unstarBtn-' + prdId).hide();
                 $('#starBtn-' + prdId).show();
             },

@@ -49,7 +49,7 @@ class KeranjangController extends Controller
 
     public function holdItem()
     {
-        $produk = Keranjang::with(['user', 'produk', 'Unit'])->where(['user_id' =>  auth()->user()->id, 'status' => 2])->get();
+        $produk = Keranjang::with(['user', 'produk', 'Unit'])->where(['user_id' =>  auth()->user()->id, 'status' => 2])->orderBy('kode_transaksi', 'asc')->get();
         return view('hold', ['halaman' => 'Hold Item', 'keranjang' => $produk]);
     }
 

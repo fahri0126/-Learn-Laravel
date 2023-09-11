@@ -6,8 +6,7 @@
 </div>
 
 <script>
-    function tombolBuka(){
-        var kode_transaksi = $('#kodeTrx').val();
+    function tombolBuka(kode_transaksi){
         $.ajax({
             type: "POST",
             url: "/keranjang/unhold",
@@ -18,9 +17,11 @@
             success: function(response){
                 $('#trx').html(response.html);
                 updateCartBadgeOnChange();
+                console.log(kode_transaksi);
             },
             error: function (error){
-
+                console.log(kode_transaksi);
+                console.log(error);
             }
         });
     }
