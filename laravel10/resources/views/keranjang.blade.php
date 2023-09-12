@@ -66,7 +66,7 @@
                 $('#checkout').prop('disabled', true);
                 $('#holdy').prop('disabled', true);
                 updateCartBadgeOnChange();
-                updateHarga()
+                updateHarga();
                 
             },
             error: function (error) {
@@ -178,6 +178,43 @@
 
     function updateHarga() {
          updateHargaOnChange();
+    }
+
+    function checkCart(){
+        $.ajax({
+            type: "GET",
+            url: "/keranjang/check-cart",
+            success: function(response){
+            if(response.isEmpty){
+                $('#checkout').prop('disabled', true);
+                $('#holdy').prop('disabled', true);
+            }
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
+
+
+    function dropProduk(prdId){
+        $.ajax({
+            type: "POST",
+            url: "/keranjang/drop-produk/" + prdId,
+            data: {
+                _token: "{{ csrf_token() }}"
+            },
+            success: function(response){
+            checkCart();
+            $('#cart-content').html(response.html);
+            updateHarga();
+            updateCartBadgeOnChange();
+
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
     }
 
 </script>

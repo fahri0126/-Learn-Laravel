@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Keranjang;
+use App\Models\Produk;
 use App\Models\Whislist;
 use Illuminate\Http\Request;
-use PhpParser\Node\Stmt\While_;
 
 class WhislistController extends Controller
 {
@@ -31,5 +32,18 @@ class WhislistController extends Controller
         $view = view('partials.favorit', ['whislist' => $whislist])->render();
 
         return response()->json(['html' => $view]);
+    }
+
+    public function favoritStore(Request $request)
+    {
+        $keranjang = new Keranjang([
+            'date' => now(),
+            'produk_id' => $request->produk_id,
+            'user_id' => auth()->user()->id,
+            'status' => 0,
+            'kuantitas' => $request->kuantitas
+        ]);
+
+        $keranjang->save();
     }
 }

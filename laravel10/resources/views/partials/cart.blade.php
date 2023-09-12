@@ -23,6 +23,9 @@
                                 @csrf
                                 <button type="button" class="btn btn-warning badge" onclick="increaseQuantity(this)" data-product-id="{{ $data->produk->id }}">+</button>
                             </form>
+                            <form>
+                                <button type="button" class="btn btn-danger badge" onclick="dropProduk('{{ $data->id }}')"><i class="bi bi-trash3-fill"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>

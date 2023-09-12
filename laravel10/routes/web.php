@@ -68,6 +68,8 @@ Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga'])->m
 Route::post('/keranjang/hold', [KeranjangController::class, 'hold']);
 Route::post('/keranjang/unhold', [KeranjangController::class, 'unhold']);
 Route::get('/keranjang/hold-item/', [KeranjangController::class, 'holdItem'])->middleware('auth');
+Route::get('/keranjang/check-cart', [KeranjangController::class, 'checkCart'])->middleware('auth');
+Route::post('/keranjang/drop-produk/{id}', [KeranjangController::class, 'dropProduk'])->middleware('auth');
 
 Route::get('/transaksi', [TransaksiController::class, 'index'])->middleware('auth');
 Route::get('/transaksi/{id}', [TransaksiController::class, 'detail'])->middleware('auth');
@@ -82,3 +84,4 @@ Route::get('/getmail/{id}', [EmailController::class, 'index'])->middleware('auth
 Route::get('/favorit', [WhislistController::class, 'index'])->middleware('auth');
 Route::post('/favorit-add', [WhislistController::class, 'store']);
 Route::post('/favorit-delete/{id}', [WhislistController::class, 'destroy']);
+Route::post('/favorit/store', [WhislistController::class, 'favoritStore']);

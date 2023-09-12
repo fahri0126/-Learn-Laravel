@@ -53,6 +53,24 @@ class KeranjangController extends Controller
         return view('hold', ['halaman' => 'Hold Item', 'keranjang' => $produk]);
     }
 
+    public function dropProduk($id)
+    {
+        Keranjang::where(['user_id' => auth()->user()->id, 'id' => $id])->delete();
+
+        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
+
+        $view = view('partials.cart', ['keranjang' => $keranjang])->render();
+
+        return response()->json(['html' => $view]);
+    }
+
+    public function checkCart()
+    {
+        $isEmptyCount = Keranjang::where('user_id', auth()->user()->id)->count();
+        $isEmpty = $isEmptyCount === 0;
+        return response()->json(['isEmpty' => $isEmpty]);
+    }
+
     public function store(Request $request)
     {
         $existingKeranjang = Keranjang::where(['produk_id' => $request->produk_id, 'user_id' => $request->user_id, 'status' => 0])->first();

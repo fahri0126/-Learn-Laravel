@@ -61,15 +61,14 @@
         @endauth
         </ul>
         
-        @if ($halaman ===  'Home' || $halaman == 'Login' || $halaman == 'Registration' || $halaman == 'Dashboard' || $halaman == 'Keranjang' || $halaman == 'Transaksi' || $halaman == 'Detail Transaksi' || $halaman == 'Hold Item' || $halaman = 'Whislist')
-        @else
-         <form class="d-flex" action="" role="search">
-            @if (request('kategori'))
-            <input type="hidden" name="kategori" value="{{ request('kategori') }}">
-            @endif
-            <input class="form-control me-2 shadow-lg" type="text" name="pencarian" placeholder="Search" aria-label="Search" value="{{ request('pencarian') }}">
-          <button class="btn btn-warning text-white" type="submit">Search</button>
-          </form>
+        @if ($halaman ===  'Produk' || $halaman === 'Kategori' )
+        <form class="d-flex" action="" role="search">
+           @if (request('kategori'))
+           <input type="hidden" name="kategori" value="{{ request('kategori') }}">
+           @endif
+           <input class="form-control me-2 shadow-lg" type="text" name="pencarian" placeholder="Search" aria-label="Search" value="{{ request('pencarian') }}">
+         <button class="btn btn-warning text-white" type="submit">Search</button>
+         </form>
         @endif
 
       </div>

@@ -23,8 +23,11 @@
                 <td class="text-center align-middle">{{ $item->produk->nama }}</td>
                 <td class="text-center align-middle">Rp. {{ number_format($item->produk->harga) }}</td>
                 <td class="text-center align-middle"> 
-                    <form action="">
-                            <button class="btn btn-success">add to cart</button>
+                    <form class="add-to-cart-form">
+                        @csrf
+                        <input type="hidden" name="kuantitas" value="1">
+                        <input type="hidden" name="produk_id" value="{{ $item->produk->id }}">
+                        <button type="button" class="btn btn-success"onclick="store(this)">add to cart</button>
                     </form>
                 </td>
             </tr>
@@ -37,3 +40,4 @@
     </div>
     @endif
 </div>
+
