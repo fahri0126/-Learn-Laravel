@@ -79,6 +79,7 @@ Route::get('/downloadpdf/{id}', [TransaksiController::class, 'downloadpdf'])->mi
 
 // send email
 Route::get('/getmail/{id}', [EmailController::class, 'index'])->middleware('auth');
+Route::post('/sendmail/{id}', [EmailController::class, 'index']);
 
 
 Route::get('/favorit', [WhislistController::class, 'index'])->middleware('auth');

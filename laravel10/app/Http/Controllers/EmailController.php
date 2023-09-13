@@ -16,14 +16,13 @@ class EmailController extends Controller
 
         $email = [
             'subject' => 'struk',
-            'sender' => 'fahriMart@gmail.com'
+            'sender' => 'fahrimart02@gmail.com'
         ];
 
-        $emailTo = $request->inputMail;
-        Mail::to("$emailTo")->cc('fahri010206@gmail.com')->send(new sendMail($email));
-        if (Mail::flushMacros()) {
-            return 'error';
-        }
+        Mail::to([$request->email])->send(new sendMail($email));
+        // if (Mail::flushMacros()) {
+        //     return 'error';
+        // }
         return response()->json(['message' => 'Email sent successfully']);
     }
 }

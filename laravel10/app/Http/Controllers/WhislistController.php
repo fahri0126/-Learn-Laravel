@@ -36,14 +36,21 @@ class WhislistController extends Controller
 
     public function favoritStore(Request $request)
     {
-        $keranjang = new Keranjang([
-            'date' => now(),
-            'produk_id' => $request->produk_id,
-            'user_id' => auth()->user()->id,
-            'status' => 0,
-            'kuantitas' => $request->kuantitas
-        ]);
+        $existFavorit = Keranjang::where(['produk_id' => $request->produk_id, 'user_id' => auth()->user()->id, 'status' => 0])->first();
 
-        $keranjang->save();
+        if ($existFavorit) {
+            $existFavorit->update([
+                'kuantitas' => $existFavorit->kuantitas + 1
+            ]);
+        } else {
+            $keranjang = new Keranjang([
+                'date' => now(),
+                'produk_id' => $request->produk_id,
+                'user_id' => auth()->user()->id,
+                'status' => 0,
+                'kuantitas' => $request->kuantitas
+            ]);
+            $keranjang->save();
+        }
     }
 }

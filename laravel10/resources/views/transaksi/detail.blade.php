@@ -62,19 +62,19 @@
                 <h5 class="modal-title" id="exampleModalLabel">Kirim Email</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <form id="emailForm">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="inputMail" class="form-label">Email Tujuan</label>
-                        <input type="email" name="inputMail" class="form-control" id="inputMail" placeholder="Email Tujuan">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="sendEmail()">Kirim</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-            </div>
+            <form id="emailForm">
+                @csrf
+                <div class="modal-body">
+                <div class="mb-3">
+                    <label for="inputMail" class="form-label">Email Tujuan</label>
+                    <input type="email" class="form-control" id="inputMail" placeholder="Email Tujuan">
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="(sendEmail())">Kirim</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -88,7 +88,7 @@
             url: "/sendmail/{{ $detail[0]->transaksi->id }}",
             data: {
                 _token: "{{ csrf_token() }}",
-                inputMail: email
+                email: email
             },
             success: function (response) {
                 alert('Email berhasil terkirim!');
@@ -96,7 +96,7 @@
             },
             error: function (error) {
                 console.log(error);
-                alert('Terjadi kesalahan saat mengirim email.');
+                alert('Terjadi kesalahan saat mengirim email. Cobalah refresh halaman');
             }
         });
     }
