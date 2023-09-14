@@ -14,7 +14,7 @@ class TransaksiController extends Controller
 {
     public function index()
     {
-        $transaksi = Transaksi::latest('id', 'desc')->where('user_id', auth()->user()->id);
+        $transaksi = Transaksi::latest('id', 'desc')->with(['user'])->where('user_id', auth()->user()->id);
         return view('transaksi.index', ['halaman' => 'Transaksi', 'transaksi' => $transaksi->get()]);
     }
 
