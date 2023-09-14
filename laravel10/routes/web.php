@@ -86,3 +86,6 @@ Route::get('/favorit', [WhislistController::class, 'index'])->middleware('auth')
 Route::post('/favorit-add', [WhislistController::class, 'store']);
 Route::post('/favorit-delete/{id}', [WhislistController::class, 'destroy']);
 Route::post('/favorit/store', [WhislistController::class, 'favoritStore']);
+
+// export excel
+Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel']);

@@ -33,6 +33,18 @@
 
               <hr class="my-3" />
 
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                <form action="/transaksi/report-excel" method="post">
+                    @csrf
+                  <button type="submit" class="nav-link d-flex align-items-center gap-2" href="#">
+                    <svg class="bi"><use xlink:href="#door-closed" /></svg>
+                    Laporan Transaksi
+                  </button>
+                </form>
+                </li>
+              </ul>
+
               <ul class="nav flex-column" style="min-height: 60vh">
                 <li class="nav-item">
                 <form action="/logout" method="post">

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
-use App\Models\TransaksiDetail;
-use Barryvdh\DomPDF\Facade\PDF as PDF;
+use App\Exports\ExportExcel;
 use Illuminate\Http\Request;
+use App\Models\TransaksiDetail;
 use PHPUnit\Event\Tracer\Tracer;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\PDF as PDF;
 
 class TransaksiController extends Controller
 {
@@ -35,5 +37,10 @@ class TransaksiController extends Controller
         $pdf->setOption('margin-bottom', 0);
 
         return $pdf->download('struk.pdf');
+    }
+
+    public function exportExcel()
+    {
+        return  Excel::download(new ExportExcel, 'Report.xlsx');
     }
 }

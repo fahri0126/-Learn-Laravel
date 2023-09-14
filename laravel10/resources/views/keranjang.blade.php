@@ -9,14 +9,14 @@
   <div class="container">
       <p class="">Total harga : <span class="text-danger">Rp. </span><span class="text-danger total-harga"></span> </p>
       <div class="d-flex">
-        <a href="/keranjang/hold-item" class="d-inline mt-3 me-4">hold item</a>
+        <button class="d-inline me-2 btn btn-secondary"><a href="/keranjang/hold-item" class="text-white text-decoration-none">Hold item</a></button>
     <form class="hold-form">
         @csrf
         <input id="holdStatus" type="hidden" name="status" value="{{ 2 }}">
         @if (count($keranjang) == 0 )
-        <button type="button" class="ms-auto btn btn-secondary disabled me-3" onclick="holdButton()">Hold</button>
+        <button type="button" class="ms-auto btn btn-secondary disabled me-5" onclick="holdButton()">Hold</button>
         @else
-        <button id="holdy" type="button" class="ms-auto btn btn-secondary me-3" onclick="holdButton()">Hold</button>
+        <button id="holdy" type="button" class="ms-auto btn btn-secondary me-5" onclick="holdButton()">Hold</button>
         @endif
     </form>
     <form class="check-out-form">
