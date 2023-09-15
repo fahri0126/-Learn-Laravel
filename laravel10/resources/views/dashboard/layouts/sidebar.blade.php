@@ -29,11 +29,17 @@
                     Units
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/laporan-transaksi">
+                    <svg class="bi"><use xlink:href="#graph-up" /></svg>
+                    Laporan Transaksi
+                  </a>
+                </li>
               </ul>
 
               <hr class="my-3" />
 
-              <ul class="nav flex-column">
+              {{-- <ul class="nav flex-column">
                 <li class="nav-item">
                 <form action="/transaksi/report-excel" method="post">
                     @csrf
@@ -43,7 +49,7 @@
                   </button>
                 </form>
                 </li>
-              </ul>
+              </ul> --}}
 
               <ul class="nav flex-column" style="min-height: 60vh">
                 <li class="nav-item">

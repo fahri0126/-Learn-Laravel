@@ -10,6 +10,7 @@ use PHPUnit\Event\Tracer\Tracer;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
 
+
 class TransaksiController extends Controller
 {
     public function index()
@@ -39,8 +40,15 @@ class TransaksiController extends Controller
         return $pdf->download('struk.pdf');
     }
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return  Excel::download(new ExportExcel, 'Report.xlsx');
+        $start = $request->start;
+        $end = $request->end;
+        return  Excel::download(new ExportExcel($start, $end), "Report" . date('Ymh', strtotime(now())) .  ".xlsx");
+    }
+
+    public function getView()
+    {
+        return view('dashboard.excel.index');
     }
 }

@@ -9,8 +9,9 @@
             @foreach ($produk as $data)
                 <div class="col-md-3 mt-3">
                     <div class="card">
-                        <img src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" class="card-img-top"
-                            alt="#" style="max-height: 12rem; min-height: 12rem;" />
+                        <a href="/produk/{{ $data->nama }}">
+                            <img src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" class="card-img-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
+                        </a>
                         <div class="card-body">
                             <p class="card-text fs-5">
                                 <strong>{{ $data->nama }}</strong>

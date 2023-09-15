@@ -19,6 +19,7 @@ use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\TransaksiDetailController;
 use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\ShareMedsosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,7 @@ use App\Http\Controllers\DashboardKategoriController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/produk', [ProdukController::class, 'index']);
+Route::get('/produk/{nama_produk}', [ProdukController::class, 'detail'])->middleware('auth');
 Route::get('/kategori', [KategoriController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -57,6 +59,10 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
     Route::resource('/dashboard/produk', DashboardProdukController::class)->names('dashboardProduk');
     Route::resource('/dashboard/kategori', DashboardKategoriController::class)->names('dashboardKategori')->except('show');
     Route::resource('/dashboard/unit', DashboardUnitController::class)->names('dashboardUnit')->except('show');
+
+    // export excel
+    Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel']);
+    Route::get('/dashboard/laporan-transaksi', [TransaksiController::class, 'getView']);
 });
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');
@@ -81,11 +87,7 @@ Route::get('/downloadpdf/{id}', [TransaksiController::class, 'downloadpdf'])->mi
 Route::get('/getmail/{id}', [EmailController::class, 'index'])->middleware('auth');
 Route::post('/sendmail/{id}', [EmailController::class, 'index']);
 
-
 Route::get('/favorit', [WhislistController::class, 'index'])->middleware('auth');
 Route::post('/favorit-add', [WhislistController::class, 'store']);
 Route::post('/favorit-delete/{id}', [WhislistController::class, 'destroy']);
 Route::post('/favorit/store', [WhislistController::class, 'favoritStore']);
-
-// export excel
-Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel']);
