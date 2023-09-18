@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-lg-4">
                 <div class="user-photo mb-3">
-                    <img class="img-fluid" src="{{ asset('images/user-profile.jpg') }}" alt="" />
+                    <img class="img-fluid" src="{{ asset('img/user-profile.jpg') }}" alt="" />
                 </div>
                     <div class="">
                     <h3>{{{ $item->nama }}}</h3>
