@@ -44,7 +44,7 @@ use App\Http\Controllers\ShareMedsosController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/produk', [ProdukController::class, 'index']);
-Route::get('/produk/{nama_produk}', [ProdukController::class, 'detail'])->middleware('auth');
+Route::get('/produk/{nama_produk}', [ProdukController::class, 'detail']);
 Route::get('/kategori', [KategoriController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
     Route::resource('/dashboard/unit', DashboardUnitController::class)->names('dashboardUnit')->except('show');
 
     // export excel
-    Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel']);
-    Route::get('/dashboard/laporan-transaksi', [TransaksiController::class, 'getView']);
+    Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel'])->name('postExcel');
+    Route::get('/dashboard/laporan-transaksi', [TransaksiController::class, 'getView'])->name('getExcel');
 });
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');

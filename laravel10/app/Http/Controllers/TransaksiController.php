@@ -10,6 +10,7 @@ use PHPUnit\Event\Tracer\Tracer;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\PDF as PDF;
 
+use function Laravel\Prompts\alert;
 
 class TransaksiController extends Controller
 {
@@ -44,6 +45,10 @@ class TransaksiController extends Controller
     {
         $start = $request->start;
         $end = $request->end;
+
+        if ($end < $start) {
+            return redirect('/dashboard/laporan-transaksi')->with('invalid', 'input tanggal invalid');
+        }
         return  Excel::download(new ExportExcel($start, $end), "Report" . date('Ymh', strtotime(now())) .  ".xlsx");
     }
 

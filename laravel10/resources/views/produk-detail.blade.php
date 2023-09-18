@@ -51,31 +51,21 @@
                 <ul class="nav nav-tabs my-3"></ul>
 
                 <div class="d-flex mb-2">
+                    @auth    
                     <form>
                         <button class="btn btn-success btn-addon" type="button">
                         <i class="bi-cart"></i> add to cart</button>
                     </form>
+                    @endauth
                     <div class="dropdown">
                         <button class="btn btn-addon ms-1 border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi-share fs-6"></i>
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="https://wa.me/628123456789?text=https:://laravel10.test">wa</a></li>
-                            <!-- AddToAny BEGIN -->
-                                    {{-- <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
-                                        <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
-                                        <a class="a2a_button_facebook"></a>
-                                        <a class="a2a_button_twitter"></a>
-                                        <a class="a2a_button_whatsapp"></a>
-                                        <a class="a2a_button_google_gmail"></a>
-                                        <a class="a2a_button_copy_link"></a>
-                                    </div>
-                                    <script async src="https://static.addtoany.com/menu/page.js"></script> --}}
-                                    <!-- AddToAny END -->
+                            <li><a class="dropdown-item" href="https://wa.me/?text=http://laravel10.test/produk/{{ $item['nama'] }}" target="_blank">wa</a></li>
                         </ul>
                     </div>
                 </div>
-                
                 </div>
             </div>
         </div>

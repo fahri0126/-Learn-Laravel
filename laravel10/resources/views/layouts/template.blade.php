@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/css/login.css">
     
     <title>fahriMart | {{ $halaman }}</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -20,27 +19,18 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-       
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-
 </head>
 <body style="font-family: poppins, sans-serif;">
  {{-- Navbar --}}
   @include('partials.navbar')
   @include('partials.perenggang')
 {{-- Navbar --}}
-
-
 {{-- landing --}}
 <section class="" >
     @yield('landing')
 </section>
 {{-- landing --}}
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
 <script>
     function updateCartBadge() {
         $.ajax({
@@ -59,11 +49,9 @@
             }
         });
     }
-
     $(document).ready(function() {
         updateCartBadge();
     });
-
     // Fungsi ini akan memperbarui cart badge setiap kali ada perubahan pada keranjang, seperti menambah atau mengurangi produk
     function updateCartBadgeOnChange() {
         // Panggil updateCartBadge() setelah perubahan pada keranjang
@@ -71,6 +59,5 @@
         updateCartBadge();
     }
 </script>
-
 </body>
 </html>
