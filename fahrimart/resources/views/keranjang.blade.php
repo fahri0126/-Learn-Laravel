@@ -13,7 +13,7 @@
     <form class="hold-form">
         @csrf
         <input id="holdStatus" type="hidden" name="status" value="{{ 2 }}">
-        @if (count($keranjang) == 0 )
+        @if (count($keranjang) === 0 )
         <button type="button" class="ms-auto btn btn-secondary disabled me-5" onclick="holdButton()">Hold</button>
         @else
         <button id="holdy" type="button" class="ms-auto btn btn-secondary me-5" onclick="holdButton()">Hold</button>
@@ -28,7 +28,7 @@
         <input type="hidden" name="produk_id[]" value="{{ $kd->produk_id }}">
         <input type="hidden" name="kuantitas[]" value="{{ $kd->kuantitas }}">
         @endforeach
-        @if (count($keranjang) == 0 )
+        @if (count($keranjang) === 0)
         <button type="button" class="ms-auto btn btn-danger disabled"  onclick="store(this)">Checkout</button>
         @else
         <button id="checkout" type="button" class="ms-auto btn btn-danger" onclick="store(this)">Checkout</button>
@@ -185,7 +185,7 @@
             type: "GET",
             url: "/keranjang/check-cart",
             success: function(response){
-            if(response.isEmpty){
+            if(response.isEmpty === 0){
                 $('#checkout').prop('disabled', true);
                 $('#holdy').prop('disabled', true);
             }
@@ -196,7 +196,6 @@
         });
     }
 
-
     function dropProduk(prdId){
         $.ajax({
             type: "POST",
@@ -205,10 +204,10 @@
                 _token: "{{ csrf_token() }}"
             },
             success: function(response){
-            checkCart();
-            $('#cart-content').html(response.html);
-            updateHarga();
-            updateCartBadgeOnChange();
+                $('#cart-content').html(response.html);
+                checkCart();
+                updateHarga();
+                updateCartBadgeOnChange();
 
             },
             error: function(error){

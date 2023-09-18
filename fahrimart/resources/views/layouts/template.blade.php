@@ -22,8 +22,10 @@
 </head>
 <body style="font-family: poppins, sans-serif;">
  {{-- Navbar --}}
-  @include('partials.navbar')
-  @include('partials.perenggang')
+ @include('partials.navbar')
+ @if ($halaman !== 'Home')    
+ @include('partials.perenggang')
+ @endif
 {{-- Navbar --}}
 {{-- landing --}}
 <section class="" >

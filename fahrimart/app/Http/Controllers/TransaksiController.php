@@ -46,7 +46,7 @@ class TransaksiController extends Controller
         $start = $request->start;
         $end = $request->end;
 
-        if ($end < $start) {
+        if ($end < $start || $start === null || $end === null) {
             return redirect('/dashboard/laporan-transaksi')->with('invalid', 'input tanggal invalid');
         }
         return  Excel::download(new ExportExcel($start, $end), "Report" . date('Ymh', strtotime(now())) .  ".xlsx");

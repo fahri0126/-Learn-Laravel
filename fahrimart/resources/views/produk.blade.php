@@ -106,7 +106,6 @@
                 prdId: prdId
             },
             success: function(response){
-                // $('#starBtn-' + prdId).prop('disabled', true);
                 $('#starBtn-' + prdId).hide();
                 $('#unstarBtn-' + prdId).show();
             },
@@ -125,7 +124,6 @@
                 prdId: prdId
             },
             success: function(response){
-                // $('#unstarBtn-' + prdId).prop('disabled', true);
                 $('#unstarBtn-' + prdId).hide();
                 $('#starBtn-' + prdId).show();
             },

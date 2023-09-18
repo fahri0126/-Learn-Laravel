@@ -66,9 +66,8 @@ class KeranjangController extends Controller
 
     public function checkCart()
     {
-        $isEmptyCount = Keranjang::where('user_id', auth()->user()->id)->count();
-        $isEmpty = $isEmptyCount === 0;
-        return response()->json(['isEmpty' => $isEmpty]);
+        $isEmptyCount = Keranjang::where(['user_id' => auth()->user()->id, 'status' => 0])->count();
+        return response()->json(['isEmpty' => $isEmptyCount]);
     }
 
     public function store(Request $request)
