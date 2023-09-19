@@ -19,7 +19,10 @@ use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\TransaksiDetailController;
 use App\Http\Controllers\DashboardKategoriController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ShareMedsosController;
+use App\Models\Discount;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +65,11 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
 
     // export excel
     Route::post('/transaksi/report-excel', [TransaksiController::class, 'exportExcel'])->name('postExcel');
-    Route::get('/dashboard/laporan-transaksi', [TransaksiController::class, 'getView'])->name('getExcel');
+    Route::get('/dashboard/laporan-transaksi', [TransaksiController::class, 'excelView'])->name('getExcel');
+
+    // diskon
+    Route::get('/dashboard/discount', [DiscountController::class, 'discountView']);
+    Route::post('/dashboard/add-discount', [DiscountController::class, 'addDiscount']);
 });
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');

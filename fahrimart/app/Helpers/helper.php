@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Discount;
 use App\Models\Whislist;
 
 if (!function_exists('cekProduk')) {
@@ -10,6 +11,18 @@ if (!function_exists('cekProduk')) {
             return 'remove';
         } else {
             return 'favorit';
+        }
+    }
+}
+
+if (!function_exists('cekDiskon')) {
+    function cekDiskon($total_price)
+    {
+        $diskon = new Discount();
+        if ($total_price >= $diskon->price) {
+            return 'diskon';
+        } else {
+            return 'tidak ada diskon';
         }
     }
 }

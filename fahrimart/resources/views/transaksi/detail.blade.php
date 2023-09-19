@@ -16,20 +16,21 @@
         </thead>
         <tbody>
             @php
-            $totalHarga = 0; // Inisialisasi total harga
+            $totalHarga = 0;
             @endphp
 
             @foreach ($detail as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $data->produk->nama }}</td>
+                <td>{{ $data->produk->nama ?? 'N/a'}}</td>
                 <td>{{ $data->kuantitas }}</td>
-                <td>Rp. {{ number_format($data->produk->harga) }}</td>
-                <td>Rp. {{ number_format($data->produk->harga * $data->kuantitas) }}</td>
+                <td>Rp. {{ number_format($data->produk->harga ?? 0) }}</td>
+                <td>Rp. {{ number_format($data->produk->harga * $data->kuantitas ?? 0) }}</td>
             </tr>
 
             @php
-            $totalHarga += $data->produk->harga * $data->kuantitas;
+            $totalHarga = $data->transaksi->harga;
+            // $totalHarga += $data->produk->harga * $data->kuantitas;
             @endphp
 
             @endforeach

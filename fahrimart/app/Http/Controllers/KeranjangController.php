@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produk;
+use App\Models\Discount;
 use App\Models\Keranjang;
 use App\Models\Transaksi;
 use Illuminate\Http\Request;
@@ -92,12 +93,23 @@ class KeranjangController extends Controller
             return $item->produk->harga * $item->kuantitas;
         });
 
-        $transaksi = new Transaksi([
-            'user_id' => $request->user_id,
-            'date' => $request->date,
-            'harga' => $totalHarga
-        ]);
-        $transaksi->save();
+        $diskon = Discount::where('price', '<=', $totalHarga)->first();
+
+        if ($diskon) {
+            $transaksi = new Transaksi([
+                'user_id' => $request->user_id,
+                'date' => $request->date,
+                'harga' => $totalHarga - ($totalHarga * $diskon->discount)
+            ]);
+            $transaksi->save();
+        } else {
+            $transaksi = new Transaksi([
+                'user_id' => $request->user_id,
+                'date' => $request->date,
+                'harga' => $totalHarga
+            ]);
+            $transaksi->save();
+        }
 
         foreach ($keranjang as $item) {
             $transaksi_detail = new TransaksiDetail([

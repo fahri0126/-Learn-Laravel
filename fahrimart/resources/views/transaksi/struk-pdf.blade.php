@@ -55,7 +55,8 @@
     @foreach ($data as $struk)
         <div class="item">{{ $struk->kuantitas }}x {{ $struk->produk->nama }} = Rp. {{ number_format($struk->kuantitas * $struk->produk->harga) }}</div>
         @php
-            $total += $struk->kuantitas * $struk->produk->harga;
+            $total = $struk->transaksi->harga;
+            // $total += $struk->kuantitas * $struk->produk->harga;
         @endphp
     @endforeach
     </div>

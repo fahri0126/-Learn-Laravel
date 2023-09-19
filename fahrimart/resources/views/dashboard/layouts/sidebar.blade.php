@@ -32,7 +32,13 @@
                 <li class="nav-item">
                   <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/laporan-transaksi">
                     <svg class="bi"><use xlink:href="#graph-up" /></svg>
-                    Laporan Transaksi
+                    Transaction report
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="/dashboard/discount">
+                    <span class="text-black fs-5 fw-light">-$</span>
+                    Discount
                   </a>
                 </li>
               </ul>

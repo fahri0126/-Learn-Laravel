@@ -52,7 +52,7 @@ class TransaksiController extends Controller
         return  Excel::download(new ExportExcel($start, $end), "Report" . date('Ymh', strtotime(now())) .  ".xlsx");
     }
 
-    public function getView()
+    public function excelView()
     {
         return view('dashboard.excel.index');
     }
