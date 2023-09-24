@@ -7,7 +7,7 @@
 </div>
 
 <div class="col-lg-6">
-<form action="/dashboard/produk" method="post">
+<form action="/dashboard/produk" method="post" enctype="multipart/form-data">
     @csrf
   <div class="row mb-3">
     <div class="col-sm-10">

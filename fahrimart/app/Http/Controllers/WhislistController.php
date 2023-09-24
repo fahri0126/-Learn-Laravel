@@ -11,7 +11,7 @@ class WhislistController extends Controller
 {
     public function index()
     {
-        $whislist = Whislist::where('user_id', auth()->user()->id)->get();
+        $whislist = Whislist::with('produk', 'user')->where('user_id', auth()->user()->id)->get();
         return view('whislist', ['halaman' => 'Favorit', 'whislist' => $whislist]);
     }
 

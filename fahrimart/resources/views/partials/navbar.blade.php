@@ -52,8 +52,7 @@
           </li>
 
         @else
-          @if($halaman == 'Login' | $halaman == 'Registration' )
-          @else
+          @if($halaman != 'Login' | $halaman != 'Registration' )
           <li class="nav-item">
             <a class="nav-link text-center" href="/login"><i class="bi bi-box-arrow-in-right d-inline"></i> Login</a>
           </li>

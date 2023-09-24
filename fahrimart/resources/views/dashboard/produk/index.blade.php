@@ -21,16 +21,17 @@
             <table class="table table-striped table-sm">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col">No.</th>
                   <th scope="col">Produk</th>
                   <th scope="col">Kategori</th>
                   <th scope="col">Berat</th>
                   <th scope="col">Harga</th>
                   <th scope="col" class=" col-2 text-center">Action</th>
+                  <th scope="col" class=" col-2 text-center">Upload Image</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($produk as $data )
+                @foreach ($produk as $data)
                 <tr class="fs-6">
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $data->nama }}</td>
@@ -45,7 +46,7 @@
                   <td>Rp. {{ number_format($data->harga, 0, ',', ',') }}</td>
                   <td>
                     <div class="d-flex">
-                    <a href="/dashboard/produk/{{ $data->nama }}" class="badge btn btn-info"><i class="bi bi-eye fs-5 d-inline"></i></a>
+                    <a href="/dashboard/produk/{{ $data->nama }}" class="badge btn btn-info disabled"><i class="bi bi-eye fs-5 d-inline"></i></a>
                     <a href="/dashboard/produk/{{ $data->nama }}/edit" class="mx-1 badge btn btn-warning"><i class="bi bi-pencil-square fs-5 d-inline"></i></a>
                     <form action="/dashboard/produk/{{ $data->nama }}" method="post">
                     @method('delete')
@@ -54,6 +55,7 @@
                     </form>
                     </div>
                   </td>
+                  <td class="d-flex justify-content-center"><a href="/dashboard/produk/upload-gambar/{{ $data->id }}" class="btn btn-primary"><i class="bi bi-arrow-bar-up"></i></a></td>
                 </tr> 
                 @endforeach
               </tbody>

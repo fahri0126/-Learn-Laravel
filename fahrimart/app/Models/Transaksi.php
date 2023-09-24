@@ -9,7 +9,7 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'date', 'harga'];
+    protected $fillable = ['user_id', 'date', 'harga', 'diskon'];
 
     public function user()
     {

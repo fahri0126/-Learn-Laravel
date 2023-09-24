@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Models\Discount;
 use App\Models\Keranjang;
+use Maatwebsite\Excel\Row;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmailController;
@@ -9,20 +11,19 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PesanController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\WhislistController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\KeranjangController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\ShareMedsosController;
+use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\DashboardUnitController;
 use App\Http\Controllers\DashboardProdukController;
 use App\Http\Controllers\TransaksiDetailController;
 use App\Http\Controllers\DashboardKategoriController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\ShareMedsosController;
-use App\Models\Discount;
-use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,7 @@ use Maatwebsite\Excel\Row;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/produk', [ProdukController::class, 'index']);
-Route::get('/produk/{nama_produk}', [ProdukController::class, 'detail']);
+Route::get('/produk/{nama_produk}/{id}', [ProdukController::class, 'detail']);
 Route::get('/kategori', [KategoriController::class, 'index']);
 
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -70,6 +71,11 @@ Route::group(['middleware' => ['auth', 'admin:2']], function () {
     // diskon
     Route::get('/dashboard/discount', [DiscountController::class, 'discountView']);
     Route::post('/dashboard/add-discount', [DiscountController::class, 'addDiscount']);
+
+    // uplload image
+    Route::get('/dashboard/produk/upload-gambar/{id}', [UploadImageController::class, 'viewImage']);
+    Route::post('/dashboard/produk/post-image', [UploadImageController::class, 'postImage']);
+    Route::post('/dashboard/produk/delete-image/{prdId}/{id}', [UploadImageController::class, 'dltImage']);
 });
 
 Route::get('/keranjang', [KeranjangController::class, 'index'])->name('keranjang')->middleware('auth');
@@ -78,7 +84,9 @@ Route::post('/keranjang/status', [KeranjangController::class, 'status'])->middle
 Route::post('/keranjang/update-quantity', [KeranjangController::class, 'updateQuantity']);
 Route::get('/keranjang/get-count', [KeranjangController::class, 'getKeranjangCount'])->middleware('auth');
 Route::get('/keranjang/totalHarga', [KeranjangController::class, 'getHarga'])->middleware('auth');
+Route::post('/keranjang/totalHarga/{id}', [KeranjangController::class, 'postHarga']);
 Route::post('/keranjang/hold', [KeranjangController::class, 'hold']);
+Route::post('/keranjang/updateHarga', [KeranjangController::class, 'status']);
 Route::post('/keranjang/unhold', [KeranjangController::class, 'unhold']);
 Route::get('/keranjang/hold-item/', [KeranjangController::class, 'holdItem'])->middleware('auth');
 Route::get('/keranjang/check-cart', [KeranjangController::class, 'checkCart'])->middleware('auth');

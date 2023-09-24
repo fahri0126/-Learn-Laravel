@@ -4,8 +4,13 @@
                 @foreach ($keranjang as $data)
                 <div class="col-md-6 my-1">
                 <div class="h-55 p-2 bg-body-tertiary border rounded-3 d-flex justify-content-evenly">
-                    <img class="rounded-3" src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" alt=""
-                        style="max-height: 8rem">
+                @if ($data->produk->gambar->count() > 0)
+                <img class="rounded-3" src="{{ asset('storage/'.$data->produk->gambar[0]->gambar) }}" alt=""
+                style="max-height: 8rem">
+                @else
+                <img class="rounded-3" src="{{ asset('img/user-profile.jpg') }}" alt=""
+                style="max-height: 8rem">
+                @endif
                     <div class="col ms-3 pt-1 align-items-center lh-base">
                         <div class="lh-1">
                             <p>{{ $data->produk->nama }}</p>

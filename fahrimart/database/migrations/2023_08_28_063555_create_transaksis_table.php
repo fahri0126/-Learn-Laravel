@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set Null')->onUpdate('cascade');
             $table->timestamp('date')->nullable();
             $table->integer('harga');
+            $table->foreignId('diskon')->nullable()->constrained('discounts')->onDelete('set Null')->onUpdate('cascade');
             $table->timestamps();
         });
     }

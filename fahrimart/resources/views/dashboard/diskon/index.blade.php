@@ -2,10 +2,12 @@
 
 @section('landing')
 @if (session()->has('success'))
-   <div class="alert alert-success alert-dismissible fade show mt-2 col-md-4" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<div class="d-flex ms-auto">
+  <div class="alert alert-success alert-dismissible fade show mt-2 col-md-6" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
 @endif
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3">
@@ -17,10 +19,10 @@
         <div class="d-flex col-md-8">
             <div class="input-group">
                 <div class="input-group-append"><span class="input-group-text">RP.</span></div>
-                <input type="number" name="harga" class="form-control" autocomplete="off">
+                <input type="number" name="harga" class="form-control" autocomplete="off" required>
             </div>
             <div class="input-group">
-                <input type="number" name="diskon" class="form-control ms-3 rounded-0" autocomplete="off">
+                <input type="number" name="diskon" class="form-control ms-3 rounded-0" autocomplete="off" required>
                 <div class="input-group-prepend"><span class="input-group-text">%</span></div>
             </div>
         </div>

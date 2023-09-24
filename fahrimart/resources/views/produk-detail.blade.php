@@ -7,7 +7,6 @@
 @endphp
 
 @foreach ($produk as $item)
-
 <div class="container">
 <section id="main-content" class="mt-3">
     <div class="row">
@@ -17,7 +16,27 @@
             <div class="row">
                 <div class="col-lg-4">
                 <div class="user-photo mb-3">
-                    <img class="img-fluid" src="{{ asset('img/user-profile.jpg') }}" alt="" />
+                    <div id="carouselExample" class="carousel slide">
+                        <div class="carousel-inner">
+                            @if ($item->gambar->count() > 0)
+                            @foreach ($item->gambar as $key => $gambar)
+                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                <img class="d-block w-100" src="{{ asset('storage/' . $gambar->gambar) }}" alt="" style="height: 300px">
+                            </div>
+                            @endforeach
+                            @else
+                                <img class="img-fluid" src="{{ asset('img/user-profile.jpg') }}" alt=""  />
+                            @endif
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        </div>
                 </div>
                     <div class="">
                     <h3>{{{ $item->nama }}}</h3>

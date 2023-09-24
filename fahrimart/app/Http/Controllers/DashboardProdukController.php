@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produk;
 use App\Models\UNit;
+use App\Models\Gambar;
+use App\Models\Produk;
 use App\Models\Kategori;
-use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Validated;
 
 class DashboardProdukController extends Controller
 {
@@ -34,6 +35,7 @@ class DashboardProdukController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request->file('image')->store('product-images');
 
         $validated = $request->validate([
             'nama' => 'required|unique:produks|max:50',

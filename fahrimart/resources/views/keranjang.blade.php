@@ -1,13 +1,24 @@
 @extends('layouts.template')
 
 @section('landing')
+<div class="container">
+    <div class="dropdown mt-3">
+        <button class="btn btn dropdown-toggle border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Use Discount
+        </button>
+        <ul class="dropdown-menu">
+            @include('partials.diskon')
+        </ul>
+    </div>
+</div>
+    
 <div class="container py-4">
         @include('partials.cart')
 </div>
 
 <nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary shadow-lg">
   <div class="container">
-      <p class="">Total harga : <span class="text-danger">Rp. </span><span class="text-danger total-harga"></span> </p>
+      <p>Total harga : <span class="text-danger">Rp.<span class="total-harga"></p>
       <div class="d-flex">
         <button class="d-inline me-2 btn btn-secondary"><a href="/keranjang/hold-item" class="text-white text-decoration-none">Hold item</a></button>
     <form class="hold-form">
@@ -29,7 +40,7 @@
         <input type="hidden" name="kuantitas[]" value="{{ $kd->kuantitas }}">
         @endforeach
         @if (count($keranjang) === 0)
-        <button type="button" class="ms-auto btn btn-danger disabled"  onclick="store(this)">Checkout</button>
+        <button type="button" class="ms-auto btn btn-danger disabled" onclick="store(this)">Checkout</button>
         @else
         <button id="checkout" type="button" class="ms-auto btn btn-danger" onclick="store(this)">Checkout</button>
         @endif
@@ -49,6 +60,7 @@
         return $(this).val(); }).get();
         var kuantitas = form.find("input[name='kuantitas[]']").map(function() {
         return $(this).val();}).get();
+
 
         $.ajax({
             type: "POST",
@@ -152,34 +164,6 @@
      });
     }
 
-
-    function updateHargaOnChange() {
-    $.ajax({
-        type: 'GET',
-        url: '/keranjang/totalHarga',
-        success: function(response) {
-            var totalHarga = $('.total-harga');
-            // Menggunakan toLocaleString() untuk mengatur format angka
-            var formattedHarga = response.harga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' });     
-            totalHarga.text(response.harga);
-            
-            totalHarga.show();
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-    }
-
-
-     $(document).ready(function() {
-         updateHargaOnChange();
-    });
-
-    function updateHarga() {
-         updateHargaOnChange();
-    }
-
     function checkCart(){
         $.ajax({
             type: "GET",
@@ -215,7 +199,49 @@
             }
         });
     }
+    
+    function updateHargaOnChange() {
+    $.ajax({
+        type: 'GET',
+        url: '/keranjang/totalHarga',
+        success: function(response) {
+            var totalHarga = $('.total-harga');
+            totalHarga.text(response.harga);
+            
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+    }
 
+
+     $(document).ready(function() {
+         updateHargaOnChange();
+    });
+
+    function updateHarga() {
+         updateHargaOnChange();
+    }
+
+    function diskon(discount){
+        $.ajax({
+            type: "POST",
+            url: "/keranjang/totalHarga/"+discount,
+            data: {
+                _token: "{{ csrf_token() }}",
+                diskon: discount
+            },
+            success: function(response){
+            var totalHarga = $('.total-harga');
+            totalHarga.text(response.harga);
+
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
 </script>
 
 

@@ -9,8 +9,12 @@
             @foreach ($produk as $data)
                 <div class="col-md-3 mt-3">
                     <div class="card">
-                        <a href="/produk/{{ $data->nama }}">
-                            <img src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" class="card-img-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
+                        <a href="/produk/{{ $data->nama }}/{{ $data->id }}">
+                            @if($data->gambar->count() > 0)
+                            <img src="{{ asset('storage/'. $data->gambar[0]->gambar) }}" class="card-img-top img-fluid" alt="#" style="max-height: 12rem; min-height: 12rem;"/>
+                            @else
+                            <img src="{{ asset('img/user-profile.jpg') }}" class="card-img-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
+                            @endif
                         </a>
                         <div class="card-body">
                             <p class="card-text fs-5">

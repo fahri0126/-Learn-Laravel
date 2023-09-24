@@ -13,8 +13,9 @@ class KeranjangController extends Controller
 {
     public function index()
     {
+        $diskon =  Discount::all();
         $produk = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
-        return view('keranjang', ['halaman' => 'Keranjang', 'keranjang' => $produk]);
+        return view('keranjang', ['halaman' => 'Keranjang', 'keranjang' => $produk, 'diskon' => $diskon]);
     }
 
     public function hold()
@@ -86,50 +87,6 @@ class KeranjangController extends Controller
         }
     }
 
-    public function status(Request $request)
-    {
-        $keranjang = Keranjang::where('status', 0)->get();
-        $totalHarga = $keranjang->sum(function ($item) {
-            return $item->produk->harga * $item->kuantitas;
-        });
-
-        $diskon = Discount::where('price', '<=', $totalHarga)->first();
-
-        if ($diskon) {
-            $transaksi = new Transaksi([
-                'user_id' => $request->user_id,
-                'date' => $request->date,
-                'harga' => $totalHarga - ($totalHarga * $diskon->discount)
-            ]);
-            $transaksi->save();
-        } else {
-            $transaksi = new Transaksi([
-                'user_id' => $request->user_id,
-                'date' => $request->date,
-                'harga' => $totalHarga
-            ]);
-            $transaksi->save();
-        }
-
-        foreach ($keranjang as $item) {
-            $transaksi_detail = new TransaksiDetail([
-                'transaksi_id' => $transaksi->id,
-                'produk_id' => $item->produk_id,
-                'kuantitas' => $item->kuantitas
-            ]);
-            $transaksi_detail->save();
-        }
-
-        Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->update(['status' => 1]);
-
-        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
-
-        $view = view('partials.cart', ['keranjang' => $keranjang])->render();
-
-        return response()->json(['html' => $view, 'totalHarga' => $totalHarga]);
-    }
-
-
     public function updateQuantity(Request $request)
     {
         $productId = $request->product_id;
@@ -154,6 +111,41 @@ class KeranjangController extends Controller
         return response()->json(['count' => $keranjangCount]);
     }
 
+    public function status(Request $request)
+    {
+        $keranjang = Keranjang::where('status', 0)->get();
+        $totalHarga = $keranjang->sum(function ($item) {
+            return  $item->produk->harga * $item->kuantitas;
+        });
+
+        $totalHarga -= ($totalHarga *  '0,10');
+
+        $transaksi = new Transaksi([
+            'user_id' => $request->user_id,
+            'date' => $request->date,
+            'harga' => $totalHarga
+        ]);
+        $transaksi->save();
+
+
+        foreach ($keranjang as $item) {
+            $transaksi_detail = new TransaksiDetail([
+                'transaksi_id' => $transaksi->id,
+                'produk_id' => $item->produk_id,
+                'kuantitas' => $item->kuantitas
+            ]);
+            $transaksi_detail->save();
+        }
+
+        Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->update(['status' => 1]);
+
+        $keranjang = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
+
+        $view = view('partials.cart', ['keranjang' => $keranjang])->render();
+
+        return response()->json(['html' => $view, 'totalHarga' => $totalHarga]);
+    }
+
     public function getHarga()
     {
         $totalHarga = 0;
@@ -165,5 +157,21 @@ class KeranjangController extends Controller
         }
 
         return response()->json(['harga' => $totalHarga]);
+    }
+
+    public function postHarga(Request $request, $id)
+    {
+        $diskon = 0;
+        $totalHarga = 0;
+        $diskon = $request->diskon;
+
+        $keranjangItems = Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->get();
+
+        foreach ($keranjangItems as $item) {
+            $totalHarga += $item->kuantitas * $item->produk->harga;
+        }
+        $total_Harga = $totalHarga - ($diskon * $totalHarga);
+
+        return response()->json(['harga' => $total_Harga, 'diskon' => $diskon]);
     }
 }

@@ -12,7 +12,13 @@
             <tr class="align-items-center">
                 <td class="col-sm-2 align-middle"> 
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('img/sharon-pittaway-KUZnfk-2DSQ-unsplash.jpg') }}" alt="" style="width: 90px" class="me-3"> 
+                        @if ($item->produk->gambar->count() > 0 )
+                        <img src="{{ asset('storage/'. $item->produk->gambar[0]->gambar) }}" alt="" 
+                        style="width: 90px" class="me-3"> 
+                        @else
+                        <img src="{{ asset('img/user-profile.jpg') }}" alt="" 
+                        style="width: 90px" class="me-3"> 
+                        @endif
                             <form>
                                 <div class="d-flex align-items-center justify-content-center" style="height: 100%;">
                                     <button type="button" class="btn btn-danger" onclick="hapusFaforit({{ $item->produk->id }})"><i class="bi bi-trash3-fill fs-4"></i></button>
