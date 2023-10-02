@@ -38,7 +38,9 @@ class ExportExcel implements FromCollection, WithMapping, WithHeadings
             $transaksi->user->name,
             $transaksi->user->email,
             $transaksi->date,
-            $transaksi->harga
+            "IDR. " . number_format($transaksi->harga) . ",00",
+            $transaksi->diskon * 100 . "%"
+
         ];
     }
 
@@ -48,7 +50,8 @@ class ExportExcel implements FromCollection, WithMapping, WithHeadings
             'Nama',
             'Email',
             'Tanggal',
-            'Total'
+            'Total Harga',
+            'Diskon'
         ];
     }
 

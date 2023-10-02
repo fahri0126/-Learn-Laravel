@@ -19,6 +19,7 @@ return new class extends Migration
             $table->boolean('status');
             $table->integer('kuantitas');
             $table->string('kode_transaksi')->nullable();
+            $table->decimal('diskon')->nullable();
             // $table->foreignId('discount_id')->nullable()->constrained('discounts')->onDelete('Set Null')->onUpdate('cascade');
             $table->timestamps();
         });

@@ -20,9 +20,7 @@ class EmailController extends Controller
         ];
 
         Mail::to([$request->email])->send(new sendMail($email));
-        // if (Mail::flushMacros()) {
-        //     return 'error';
-        // }
+
         return response()->json(['message' => 'Email sent successfully']);
     }
 }

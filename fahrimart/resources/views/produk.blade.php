@@ -9,11 +9,11 @@
             @foreach ($produk as $data)
                 <div class="col-md-3 mt-3">
                     <div class="card">
-                        <a href="/produk/{{ $data->nama }}/{{ $data->id }}">
+                        <a href="/produk/{{ $data->nama }}">
                             @if($data->gambar->count() > 0)
-                            <img src="{{ asset('storage/'. $data->gambar[0]->gambar) }}" class="card-img-top img-fluid" alt="#" style="max-height: 12rem; min-height: 12rem;"/>
+                            <img src="{{ asset('storage/'. $data->gambar[0]->gambar) }}" class="card-img-top img-fluid my-1 px-1 rounded-top" alt="#" style="max-height: 12rem; min-height: 12rem;"/>
                             @else
-                            <img src="{{ asset('img/user-profile.jpg') }}" class="card-img-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
+                            <img src="{{ asset('img/fahrimart(6).png') }}" class="card-img-top my-1 px-1 rounded-top" alt="#" style="max-height: 12rem; min-height: 12rem;" />
                             @endif
                         </a>
                         <div class="card-body">

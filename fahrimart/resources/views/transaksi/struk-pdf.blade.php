@@ -9,9 +9,9 @@
         @page { margin:0px; }
         body {
             font-family: Arial, sans-serif;
-            width: 76mm; /* Set the width to match the receipt paper width */
-            margin: 0; /* Remove default margin */
-            padding: 10mm; /* Add padding to align content within paper */
+            width: 76mm;
+            margin: 0;
+            padding: 10mm;
         }
         .header {
             font-size: 16px;
@@ -34,6 +34,12 @@
     </style>
 </head>
 <body>
+@php
+    $test = false;
+    foreach ($data as $key => $value) {
+        $test = $value->transaksi->diskon * 100;
+    }
+@endphp
     <div class="header">
         <p align="center">fahriMart</p>
         <div class="divider"></div>
@@ -51,18 +57,27 @@
     <div class="items">
     @php
         $total = 0;
+        $hargaAseli = 0;
     @endphp
     @foreach ($data as $struk)
         <div class="item">{{ $struk->kuantitas }}x {{ $struk->produk->nama }} = Rp. {{ number_format($struk->kuantitas * $struk->produk->harga) }}</div>
         @php
             $total = $struk->transaksi->harga;
-            // $total += $struk->kuantitas * $struk->produk->harga;
+            $hargaAseli += $struk->kuantitas * $struk->produk->harga;
         @endphp
     @endforeach
-    </div>
+        </div>
     <div class="divider"></div>
+        
+    @if ($test)
+        <div class="item">Discount = {{ $test }}%</div>
+    @endif
 
-    <div class="total">Total : Rp. {{ number_format($total) }}</div>
+    <div class="total">Total : Rp. {{ number_format($total) }}<br>
+        @if ($test)
+        <span style="text-decoration: line-through">{{ number_format($hargaAseli) }}</span>
+        @endif
+    </div>
 
     </div>
 </body>

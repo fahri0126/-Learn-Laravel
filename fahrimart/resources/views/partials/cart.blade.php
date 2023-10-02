@@ -8,7 +8,7 @@
                 <img class="rounded-3" src="{{ asset('storage/'.$data->produk->gambar[0]->gambar) }}" alt=""
                 style="max-height: 8rem">
                 @else
-                <img class="rounded-3" src="{{ asset('img/user-profile.jpg') }}" alt=""
+                <img class="rounded-3" src="{{ asset('img/fahrimart(6).png') }}" alt=""
                 style="max-height: 8rem">
                 @endif
                     <div class="col ms-3 pt-1 align-items-center lh-base">

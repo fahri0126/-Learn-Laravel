@@ -14,7 +14,7 @@
 </div>
 <div class="row mb-3">
     <div class="col-sm-8">
-        <input class="form-control @error('gambar') is-invalid @enderror" name="gambar" type="file">
+        <input class="form-control @error('gambar') is-invalid @enderror" name="gambar" type="file" multiple>
         @error('gambar')
         <div class="invalid-feedback">
             <p class="tex-danger">{{ $message }}</p>

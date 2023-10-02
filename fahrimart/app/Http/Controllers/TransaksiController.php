@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Transaksi;
 use App\Exports\ExportExcel;
+use App\Http\Resources\TransaksiResource;
 use Illuminate\Http\Request;
 use App\Models\TransaksiDetail;
 use PHPUnit\Event\Tracer\Tracer;
@@ -55,5 +56,12 @@ class TransaksiController extends Controller
     public function excelView()
     {
         return view('dashboard.excel.index');
+    }
+
+    public function transaksiView()
+    {
+        $transaksi = Transaksi::all();
+        return TransaksiResource::collection($transaksi);
+        // return response()->json(['transaksi' => $transaksi]);
     }
 }

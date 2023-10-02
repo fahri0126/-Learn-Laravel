@@ -3,6 +3,12 @@
 @section('landing')
 
 <div class="send-email"></div>
+@php
+    $test = false;
+    foreach ($detail as $key => $value) {
+        $test = $value->transaksi->diskon * 100;
+    }
+@endphp
 
 <div class="container">
     @if (count($detail))
@@ -17,6 +23,7 @@
         <tbody>
             @php
             $totalHarga = 0;
+            $hargaAseli = 0;
             @endphp
 
             @foreach ($detail as $data)
@@ -30,16 +37,30 @@
 
             @php
             $totalHarga = $data->transaksi->harga;
-            // $totalHarga += $data->produk->harga * $data->kuantitas;
+
+            $hargaAseli += $data->produk->harga * $data->kuantitas;
             @endphp
 
             @endforeach
 
             <tr>
                 <td colspan="4" class="text-end">Total Harga :</td>
-                <td class="text-danger">Rp. {{ number_format($totalHarga) }}</td>
+                <td class="@if(!$test) text-danger @endif">Rp.
+                @if ($test)
+                     <span class="text-decoration-line-through">{{ number_format($hargaAseli) }}</span> 
+                @endif
+                     <span class="text-danger">{{ number_format($totalHarga) }}</span>
+                </td>
             </tr>
-        </tbody>
+            @if ($test)
+                <tr>
+                    <td colspan="4"></td>
+                    <td>
+                        <span class="text-danger">Discount {{ $test }}%</span>
+                    </td>
+                </tr>
+            @endif
+            </tbody>
     </table>
     <div class="text-center mt-3 d-flex justify-content-end gap-3">
         <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#emailModal">

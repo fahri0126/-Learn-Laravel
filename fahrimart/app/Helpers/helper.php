@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\Discount;
 use App\Models\Whislist;
+use App\Models\Keranjang;
+
 
 if (!function_exists('cekProduk')) {
     function cekProduk($user_id, $produk_id)
@@ -15,14 +16,18 @@ if (!function_exists('cekProduk')) {
     }
 }
 
-if (!function_exists('cekDiskon')) {
-    function cekDiskon($total_price)
+if (!function_exists('getHarga')) {
+    function getHarga()
     {
-        $diskon = new Discount();
-        if ($total_price >= $diskon->price) {
-            return 'diskon';
-        } else {
-            return 'tidak ada diskon';
+        $totalHarga = 0;
+        $diskon = 0;
+        $keranjangItems = Keranjang::with('user', 'produk')->where(['user_id' =>  auth()->user()->id, 'status' => 0])->get();
+        foreach ($keranjangItems as $item) {
+            $totalHarga += $item->kuantitas * $item->produk->harga;
+            $diskon = $item->diskon;
         }
+        $total_harga = $totalHarga - ($diskon * $totalHarga);
+
+        return $total_harga;
     }
 }

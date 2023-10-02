@@ -13,7 +13,7 @@ class KeranjangController extends Controller
 {
     public function index()
     {
-        $diskon =  Discount::all();
+        $diskon = Discount::all();
         $produk = Keranjang::with(['user', 'produk', 'Unit'])->where('user_id', auth()->user()->id)->where('status', 0)->get();
         return view('keranjang', ['halaman' => 'Keranjang', 'keranjang' => $produk, 'diskon' => $diskon]);
     }
@@ -115,15 +115,18 @@ class KeranjangController extends Controller
     {
         $keranjang = Keranjang::where('status', 0)->get();
         $totalHarga = $keranjang->sum(function ($item) {
-            return  $item->produk->harga * $item->kuantitas;
+            return  $item->produk->harga * $item->kuantitas - ($item->diskon * ($item->produk->harga * $item->kuantitas));
         });
 
-        $totalHarga -= ($totalHarga *  '0,10');
+        foreach ($keranjang as $key => $item) {
+            $diskon =   $item->diskon;
+        }
 
         $transaksi = new Transaksi([
-            'user_id' => $request->user_id,
-            'date' => $request->date,
-            'harga' => $totalHarga
+            'user_id' => auth()->user()->id,
+            'date' => now(),
+            'harga' => $totalHarga,
+            'diskon' => $diskon
         ]);
         $transaksi->save();
 
@@ -149,29 +152,62 @@ class KeranjangController extends Controller
     public function getHarga()
     {
         $totalHarga = 0;
+        $diskon = 0;
 
-        $keranjangItems = Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->get();
+        $keranjangItems = Keranjang::with('user', 'produk')->where(['user_id' =>  auth()->user()->id, 'status' => 0])->get();
 
         foreach ($keranjangItems as $item) {
             $totalHarga += $item->kuantitas * $item->produk->harga;
+            $diskon = $item->diskon;
         }
 
-        return response()->json(['harga' => $totalHarga]);
+        $total_harga = $totalHarga - ($diskon * $totalHarga);
+
+        $getDiskon = '| ' . $diskon * 100 . '% off';
+
+        return response()->json(['harga' => number_format($total_harga), 'diskon' => $getDiskon]);
     }
 
-    public function postHarga(Request $request, $id)
+    public function postHarga($discount)
     {
         $diskon = 0;
+        $diskon = $discount;
         $totalHarga = 0;
-        $diskon = $request->diskon;
 
-        $keranjangItems = Keranjang::where('user_id', auth()->user()->id)->where('status', 0)->get();
+        $keranjangItems = Keranjang::with('user', 'produk')->where(['user_id' => auth()->user()->id, 'status' => 0])->get();
+
+        foreach ($keranjangItems as $item) {
+            $item->update(['diskon' => $diskon]);
+        }
 
         foreach ($keranjangItems as $item) {
             $totalHarga += $item->kuantitas * $item->produk->harga;
         }
         $total_Harga = $totalHarga - ($diskon * $totalHarga);
 
-        return response()->json(['harga' => $total_Harga, 'diskon' => $diskon]);
+        $getDiskon = '| ' . $diskon * 100 . '% off';
+
+        return response()->json(['harga' => number_format($total_Harga), 'diskon' => $getDiskon]);
+    }
+
+    public function deletediskon()
+    {
+        $diskon = 0;
+        $totalHarga = 0;
+
+        $keranjangItems = Keranjang::with('user', 'produk')->where(['user_id' => auth()->user()->id, 'status' => 0])->get();
+
+        foreach ($keranjangItems as $item) {
+            $item->update(['diskon' => $diskon]);
+        }
+
+        foreach ($keranjangItems as $item) {
+            $totalHarga += $item->kuantitas * $item->produk->harga;
+        }
+        $total_Harga = $totalHarga - ($diskon * $totalHarga);
+
+        $getDiskon = '| ' . $diskon * 100 . '% off';
+
+        return response()->json(['harga' => number_format($total_Harga), 'diskon' => $getDiskon]);
     }
 }

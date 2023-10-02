@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Keranjang extends Model
 {
-    protected $fillable = ['date', 'user_id', 'produk_id', 'kuantitas', 'status', 'kode_transaksi', 'discount_id'];
+    protected $fillable = ['date', 'user_id', 'produk_id', 'kuantitas', 'status', 'kode_transaksi', 'diskon'];
 
     use HasFactory;
 
@@ -24,5 +24,10 @@ class Keranjang extends Model
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function diskon()
+    {
+        return $this->belongsTo(Discount::class);
     }
 }

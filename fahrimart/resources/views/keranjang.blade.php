@@ -2,14 +2,16 @@
 
 @section('landing')
 <div class="container">
-    <div class="dropdown mt-3">
-        <button class="btn btn dropdown-toggle border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Use Discount
-        </button>
-        <ul class="dropdown-menu">
-            @include('partials.diskon')
-        </ul>
-    </div>
+@if ($keranjang->count() > 0)
+<div class="dropdown mt-3" id="use-discount" style="display: none">
+    <button class="btn btn dropdown-toggle border" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Use Discount
+    </button>
+    <ul class="dropdown-menu">
+        @include('partials.diskon')
+    </ul>
+</div>
+@endif
 </div>
     
 <div class="container py-4">
@@ -18,7 +20,11 @@
 
 <nav class="navbar fixed-bottom navbar-expand-lg bg-body-tertiary shadow-lg">
   <div class="container">
-      <p>Total harga : <span class="text-danger">Rp.<span class="total-harga"></p>
+      <p>Total harga : <span class="text-danger">Rp.
+        <span class="total-harga"></span>
+        <span class="text-black discount">% off
+        {{-- <input type="hidden" id="total_harga"> --}}
+      </p>
       <div class="d-flex">
         <button class="d-inline me-2 btn btn-secondary"><a href="/keranjang/hold-item" class="text-white text-decoration-none">Hold item</a></button>
     <form class="hold-form">
@@ -49,7 +55,6 @@
   </div>
 </nav>
 
-
 <script>
     function store(button){
         var form = $(button).closest('form');
@@ -77,6 +82,7 @@
                 $('#cart-content').html(response.html);
                 $('#checkout').prop('disabled', true);
                 $('#holdy').prop('disabled', true);
+                getPrice();
                 updateCartBadgeOnChange();
                 updateHarga();
                 
@@ -99,7 +105,8 @@
             success: function (response) {
                 $('#holdy').prop('disabled', true);
                 $('#checkout').prop('disabled', true);
-                updateHarga()
+                updateHarga();
+                getPrice();
                 $('#cart-content').html(response.html);
                 updateCartBadgeOnChange();
                 
@@ -142,7 +149,9 @@
             var totalHargaElement = $('.total-harga');
                 totalHargaElement.text(response.totalHarga);
             $('#quantity-' + productId).text(response.new_quantity);
-            updateHarga()
+            updateHarga();
+            deleteDiskon();
+            getPrice();
 
             var decreaseButton = $('button[data-product-id="' + productId + '"][onclick="decreaseQuantity(this)"]');
             if (new_quantity < 2) {
@@ -192,6 +201,8 @@
                 checkCart();
                 updateHarga();
                 updateCartBadgeOnChange();
+                deleteDiskon();
+                getPrice();
 
             },
             error: function(error){
@@ -206,15 +217,16 @@
         url: '/keranjang/totalHarga',
         success: function(response) {
             var totalHarga = $('.total-harga');
+            var discount = $('.discount');
             totalHarga.text(response.harga);
-            
+            discount.text(response.diskon);
+            // getPrice();
         },
         error: function(error) {
             console.log(error);
         }
     });
     }
-
 
      $(document).ready(function() {
          updateHargaOnChange();
@@ -224,17 +236,18 @@
          updateHargaOnChange();
     }
 
-    function diskon(discount){
+    function deleteDiskon(){
         $.ajax({
             type: "POST",
-            url: "/keranjang/totalHarga/"+discount,
+            url: "/keranjang/delete-diskon",
             data: {
                 _token: "{{ csrf_token() }}",
-                diskon: discount
             },
             success: function(response){
-            var totalHarga = $('.total-harga');
+            let totalHarga = $('.total-harga');
+            let discount = $('.discount');
             totalHarga.text(response.harga);
+            discount.text(response.diskon);
 
             },
             error: function(error){
@@ -243,7 +256,6 @@
         });
     }
 </script>
-
 
 @include('partials.perenggang')
 @endsection
